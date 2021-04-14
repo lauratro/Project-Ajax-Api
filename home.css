@@ -1,0 +1,62 @@
+body {
+  background: radial-gradient(#4e3022, #161616);
+  background-size: cover;
+}
+#central-pic {
+  display: flex;
+}
+#central.pic img {
+  margin: 0;
+}
+.half-pic {
+  width: 150px;
+  height: 300px;
+  cursor: pointer;
+}
+.cocktail-viola-left {
+  transform: translateY(10%);
+  transition: all 0.5 ease;
+}
+.cocktail-viola-right {
+  transform: translateY(-10%);
+  transition: all 0.8s ease;
+}
+.close {
+  transform: translateY(0%);
+}
+.hide-text {
+  display: none;
+}
+.show-text {
+  display: block;
+}
+.parallax {
+  background: black;
+  opacity: 0.5;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translateY(100%);
+  transition: transform 4s ease-out 0.5s;
+}
+.parallaxScroll {
+  transform: translateY(-100%);
+}
+
+.parallaxText1 {
+  opacity: 0;
+  transition: all 3s ease-in-out 0.2s;
+}
+.parallaxText2 {
+  opacity: 0;
+  transition: all 3s ease-in-out 0.5s;
+}
+
+.parallaxTextShow {
+  opacity: 1;
+}
