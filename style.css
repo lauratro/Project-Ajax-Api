@@ -34,6 +34,12 @@ body {
 .close {
   transform: translateY(0%);
 }
+.hide-text {
+  display: none;
+}
+.show-text {
+  display: block;
+}
 .parallax {
   background: black;
   opacity: 0.5;

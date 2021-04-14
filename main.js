@@ -6,6 +6,9 @@ let body = document.querySelector("body");
 let parallaxTexts = document.querySelectorAll(".paral-text");
 let paraText1 = document.querySelector(".parallaxText1");
 let paraText2 = document.querySelector(".parallaxText2");
+let showBtn = document.querySelector(".show-btn");
+let hideText = document.querySelector(".hide-text");
+console.log(showBtn);
 
 function cocktailPicture() {
   //Cutted Picture home page
@@ -19,7 +22,12 @@ function cocktailPicture() {
     paraText1.classList.toggle("parallaxTextShow");
     paraText2.classList.toggle("parallaxTextShow");
   });
-  if (parallax.classList.contains("parallaxScroll")) {
-  }
+  showBtn.addEventListener("click", function () {
+    hideText.classList.toggle("show-text");
+    showBtn.innerHTML = "Show Less";
+    if (!hideText.classList.contains("show-text")) {
+      showBtn.innerHTML = "Show more";
+    }
+  });
 }
 cocktailPicture();
