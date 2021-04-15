@@ -21,7 +21,7 @@
   </head>
   <body>
     <header>
-      <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+      <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container-fluid">
           <button
             class="navbar-toggler bg-white"
@@ -63,30 +63,36 @@
         </div>
       </nav>
     </header>
-    <main>
+    <main class="position-relative main main-home pt-5">
       <div class="container text-white">
         <div class="row text-center">
-          <div class="col-md-2 align-self-end">One of three columns</div>
-          <div class="col-md-8 my-5">
+          <div class="col-md-6 align-self-center">
+            <h3>Find your new favorite beer</h3>
+            <p>
+              Lorem Ipsum has been the industry's standard dummy text ever since
+              the 1500s, when an unknown printer took a galley of type and
+              scrambled it to make a type specimen book.
+            </p>
+          </div>
+          <div class="col-md-6 my-5">
             <div
               id="central-pic"
               class="d-flex justify-content-center align-self-end"
             >
-              <a href="">
+              <a href="filterBeer.html">
                 <img
-                  class="half-pic cocktail-viola-left"
+                  class="half-pic cocktail-viola-left rounded-left"
                   src="img/beerGlass-left.jpg"
-                  alt="cocktail"
+                  alt="beer"
               /></a>
-              <a href="">
+              <a href="filterBeer.html">
                 <img
-                  class="half-pic cocktail-viola-right"
+                  class="half-pic cocktail-viola-right rounded-right"
                   src="img/beerGlass-right.jpg"
-                  alt="cocktail"
+                  alt="beer"
               /></a>
             </div>
           </div>
-          <div class="col-md-2">One of three columns</div>
         </div>
       </div>
       <div class="container">
@@ -126,12 +132,10 @@
         class="parallax justify-content-center align-items-center flex-column"
       >
         <div
-          class="text-parallax text-white font-weight-bold font-italic fs-2 text-uppercase"
+          class="text-parallax text-white font-weight-bold font-italic fs-1 text-uppercase"
         >
-          <p class="parallaxText1 paral-text">The summer is coming</p>
-          <p class="parallaxText2 paral-text">
-            find the perfect cocktail for you
-          </p>
+          <!--<p class="parallaxText1 paral-text">The summer is coming</p>-->
+          <p class="parallaxText2 paral-text">Find the perfect beer for you</p>
         </div>
       </div>
     </main>

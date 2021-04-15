@@ -1,35 +1,66 @@
-const data = "Punk";
 let dataResult = document.getElementById("dataResult");
-//url Api
-let params = new URL(document.location).searchParams;
-let name = params.get("name");
-let url = document.location;
-let divUrl = document.getElementById("url");
-divUrl.innerHTML = url;
-if (url == "http://127.0.0.1:5500/display_data.html?select=name") {
+//table
+let tableResult = document.getElementById("tableResult");
+let prevBtn = document.getElementById("prev");
+let succBtn = document.getElementById("succ");
+let pageNumber = 1;
+let currentPage = document.getElementById("page");
+
+var i = 2;
+let y = 1;
+let f;
+let url1 = ``;
+function pageChanger() {
+  succBtn.addEventListener("click", function increment() {
+    y = i++;
+    currentPage.innerHTML = y;
+    console.log(y);
+    url1 = `https://api.punkapi.com/v2/beers?page=${y}`;
+
+    console.log(url1);
+  });
+  prevBtn.addEventListener("click", function increment() {
+    y = i--;
+    currentPage.innerHTML = y;
+    console.log(y);
+    url1 = `https://api.punkapi.com/v2/beers?page=${y}`;
+
+    console.log(url1);
+  });
+
   fetch(
-    `https://api.punkapi.com/v2/beers?beer_name=${data}`,
+    url1,
 
     {
-      method: "GET", // or 'PUT'
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
-      //  body: JSON.stringify(data),
     }
   )
     .then((response) => response.json())
     .then((data) => {
       console.log("Success:", data);
-      for (var i = 0; i < data.length; i++) {
-        let div = document.createElement("div");
-        div.innerHTML = data[i].name;
-        dataResult.appendChild(div);
+      data.sort(function (a, b) {
+        return a.id - b.id;
+      });
+
+      if (data.length > 0) {
+        tableResult.classList.toggle("showTable");
+        var tab = "";
+        var num = 0;
+        data.forEach((d) => {
+          num++;
+          tab += "<tr>";
+          tab += "<td>" + d.id + "</td>";
+          tab += "<td>" + d.name + "</td>";
+          tab += "<td>" + d.abv + "</td>";
+          tab += "</tr>";
+        });
+        dataResult.innerHTML = tab;
       }
     })
     .catch((error) => {
       console.error("Error:", error);
     });
-} else {
-  divUrl.innerHTML = altro;
 }

@@ -10,16 +10,16 @@ let showBtn = document.querySelector(".show-btn");
 let hideText = document.querySelector(".hide-text");
 console.log(showBtn);
 
-function cocktailPicture() {
+let cocktailPicture = () => {
   //Cutted Picture home page
   central.addEventListener("mouseover", function () {
     leftPic.classList.toggle("close");
     rightPic.classList.toggle("close");
   });
 
-  window.addEventListener("scroll", function () {
+  window.addEventListener("load", function () {
     parallax.classList.add("parallaxScroll");
-    paraText1.classList.toggle("parallaxTextShow");
+    //paraText1.classList.toggle("parallaxTextShow");
     paraText2.classList.toggle("parallaxTextShow");
   });
   showBtn.addEventListener("click", function () {
@@ -29,5 +29,5 @@ function cocktailPicture() {
       showBtn.innerHTML = "Show more";
     }
   });
-}
+};
 cocktailPicture();

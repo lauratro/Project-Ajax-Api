@@ -1,0 +1,9 @@
+.radio input {
+  margin: 5px;
+}
+.hide {
+  display: none;
+}
+.showTable {
+  display: block;
+}
