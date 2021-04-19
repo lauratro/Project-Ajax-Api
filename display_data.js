@@ -2,7 +2,8 @@ let dataResult = document.getElementById("dataResult");
 //table
 let tableResult = document.getElementById("tableResult");
 let tot = document.getElementById("tot");
-
+//Radio Buttons
+/* let oneAlc = document.getElementById("one");
 let alc;
 let alcbg;
 let url = new URL(window.location.href);
@@ -19,7 +20,7 @@ if (url.searchParams.get("alcohol") == 1) {
 } else {
   alc = 0;
   alcbg = 50;
-}
+} */
 //Table
 let tableRes = (data) => {
   tableResult.classList.toggle("showTable");
@@ -36,7 +37,7 @@ let tableRes = (data) => {
   dataResult.innerHTML = tab;
 };
 fetch(
-  `https://api.punkapi.com/v2/beers?page=1&abv_lt=${alc}&abv_gt=${alcbg}`,
+  `https://api.punkapi.com/v2/beers?per_page=80`,
 
   {
     method: "GET",
@@ -51,9 +52,39 @@ fetch(
     data.sort(function (a, b) {
       return a.abv - b.abv;
     });
-    if (data.length > 0) {
-      return tableRes(data);
+    function changeRadio() {
+      if (document.querySelector('input[name="alcohol"]')) {
+        document.querySelectorAll('input[name="alcohol"]').forEach((elem) => {
+          elem.addEventListener("change", function (event) {
+            var item = event.target.value;
+            console.log(item);
+            if (item == "1") {
+              let filtrato = data.filter((x) => {
+                return x.abv < 1;
+              });
+
+              console.log(filtrato);
+              tableRes(filtrato);
+            } else if (item == "4") {
+              let filtrato = data.filter((x) => {
+                return x.abv > 1 && x.abv < 4;
+              });
+
+              console.log(filtrato);
+              tableRes(filtrato);
+            } else if (item == "6") {
+              let filtrato = data.filter((x) => {
+                return x.abv > 3.9 && x.abv < 6;
+              });
+              console.log(filtrato);
+              tableRes(filtrato);
+            }
+          });
+        });
+      }
     }
+    changeRadio();
+    tableRes(data);
   })
   .catch((error) => {
     console.error("Error:", error);
