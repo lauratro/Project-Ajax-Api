@@ -2,52 +2,73 @@ let dataResult = document.getElementById("dataResult");
 //table
 let tableResult = document.getElementById("tableResult");
 let tot = document.getElementById("tot");
-//Radio Buttons
-/* let oneAlc = document.getElementById("one");
-let alc;
-let alcbg;
-let url = new URL(window.location.href);
+let succBtn = document.getElementById("succ");
+let prevBtn = document.getElementById("prev");
+let currentPage = document.getElementById("page");
+let pageNumber = 1;
+let y = 1;
+//radio
+/* let form2 = document.getElementById("form2");
+console.log("form2", form2);
+let trueBtn = document.getElementById("true");
+let falseBtn = document.getElementById("false");
+let submitRadio = document.getElementById("submit");
+let ciao = document.getElementById("ciao"); */
 
-if (url.searchParams.get("alcohol") == 1) {
-  alc = 1;
-  alcbg = 0;
-} else if (url.searchParams.get("alcohol") == 4) {
-  alc = 4;
-  alcbg = 0.9;
-} else if (url.searchParams.get("alcohol") == 6) {
-  alc = 6;
-  alcbg = 3.9;
-} else {
-  alc = 0;
-  alcbg = 50;
-} */
 //Table
-let tableRes = (data) => {
+let displayResults = (data) => {
   tableResult.classList.toggle("showTable");
   var tab = "";
   var num = "";
   data.forEach((d) => {
     num++;
     tab += "<tr>";
-    tab += "<td>" + num + "</td>";
+    tab += "<td>" + d.id + "</td>";
     tab += "<td>" + d.name + "</td>";
     tab += "<td>" + d.abv + "</td>";
     tab += "</tr>";
   });
+
   dataResult.innerHTML = tab;
 };
-fetch(
-  `https://api.punkapi.com/v2/beers?per_page=80`,
+var btns = document.querySelectorAll("button");
+btns.forEach(function (btn) {
+  btn.addEventListener("click", updateAmount);
+});
+var num;
 
-  {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  }
-)
-  .then((response) => response.json())
+function updateAmount() {
+  num = parseInt(document.getElementById("number").textContent.trim(), 10);
+  this.value === "minus" ? num-- : num++;
+  document.getElementById("number").textContent = num;
+
+  return num;
+}
+let method = {
+  method: "GET",
+  headers: {
+    "Content-Type": "application/json",
+  },
+};
+Promise.all([
+  fetch("https://api.punkapi.com/v2/beers?page=1&per_page=80", method),
+  fetch("https://api.punkapi.com/v2/beers?page=2&per_page=80", method),
+  fetch("https://api.punkapi.com/v2/beers?page=3&per_page=80", method),
+  fetch("https://api.punkapi.com/v2/beers?page=4&per_page=80", method),
+  fetch("https://api.punkapi.com/v2/beers?page=5&per_page=80", method),
+])
+  .then(function (responses) {
+    // Get a JSON object from each of the responses
+    return Promise.all(
+      responses.map(function (response) {
+        return response.json();
+      })
+    );
+  })
   .then((data) => {
+    let newData = [].concat.apply([], data); //Concat nested data arrays
+
+    data = newData;
     console.log("Success:", data);
     data.sort(function (a, b) {
       return a.abv - b.abv;
@@ -58,34 +79,34 @@ fetch(
           elem.addEventListener("change", function (event) {
             var item = event.target.value;
             console.log(item);
-            if (item == "1") {
-              let filtrato = data.filter((x) => {
-                return x.abv < 1;
+            if (item == "one") {
+              let filtrato = data.filter((x, i) => {
+                return x.abv < 4.1 && x.abv > 0;
               });
 
               console.log(filtrato);
-              tableRes(filtrato);
-            } else if (item == "4") {
+              displayResults(filtrato);
+            } else if (item == "four") {
               let filtrato = data.filter((x) => {
-                return x.abv > 1 && x.abv < 4;
+                return x.abv < 6.1 && x.abv > 4;
               });
 
               console.log(filtrato);
-              tableRes(filtrato);
-            } else if (item == "6") {
+              displayResults(filtrato);
+            } else if (item == "six") {
               let filtrato = data.filter((x) => {
-                return x.abv > 3.9 && x.abv < 6;
+                return x.abv > 6;
               });
+
               console.log(filtrato);
-              tableRes(filtrato);
+              displayResults(filtrato);
             }
           });
         });
       }
     }
     changeRadio();
-    tableRes(data);
-  })
-  .catch((error) => {
-    console.error("Error:", error);
+
+    console.log(data);
+    displayResults(data);
   });

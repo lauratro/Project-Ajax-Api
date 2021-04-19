@@ -7,3 +7,7 @@
 .showTable {
   display: block;
 }
+
+#noResult {
+  display: none;
+}

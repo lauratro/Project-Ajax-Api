@@ -1,4 +1,4 @@
-let dataResult = document.getElementById("dataResult");
+/* let dataResult = document.getElementById("dataResult");
 //table
 let tableResult = document.getElementById("tableResult");
 let tot = document.getElementById("tot");
@@ -65,4 +65,4 @@ fetch(pageChanger(updateAmount()), {
   })
   .catch((error) => {
     console.error("Error:", error);
-  });
+  }); */
