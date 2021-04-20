@@ -5,6 +5,7 @@ let tot = document.getElementById("tot");
 
 //Table
 let displayResults = (data) => {
+  bodyTable.innerHTML = "";
   tableResult.classList.toggle("showTable");
   let numData = "";
   tot.innerHTML = data.length;
@@ -47,36 +48,67 @@ let dropdownSelectorCreator = (data) => {
   //creating final selection for dropdown button
   uniqueArray.forEach((elem) => {
     let option = document.createElement("option");
-    option.value = elem;
+    option.setAttribute("value", elem);
     option.innerHTML = elem;
     dropdownGroup.appendChild(option);
   });
+  console.log(dropdownGroup);
 };
 //Checkbox selector
-let checkbox = document.getElementById("checkbox-select");
-let checkboxArray = [
-  "IPA",
-  "Lager",
-  "Pale Ale",
-  "brewed before 2011",
-  "brewed after 2011",
-];
+let checkboxDiv = document.getElementById("checkbox-select");
+
+let checkboxArray = ["2016", "2017", "2018"];
 let checkboxSelector = () => {
-  checkboxArray.forEach((check) => {
+  checkboxArray.map((check) => {
     let input = document.createElement("input");
     let label = document.createElement("label");
     input.setAttribute("type", "checkbox");
     input.setAttribute("name", "checkbox-name");
     input.setAttribute("id", check);
-    label.setAttribute("for", check);
-    label.innerHTML = check;
+    input.setAttribute("value", check);
 
-    console.log(checkbox);
-    checkbox.appendChild(input);
-    checkbox.appendChild(label);
+    checkboxDiv.appendChild(input);
+    checkboxDiv.appendChild(label);
+    label.appendChild(document.createTextNode(check));
   });
 };
+
 checkboxSelector();
+const addEvents = (data) => {
+  let checkboxes = Array.from(
+    document.querySelectorAll("input[type=checkbox]")
+  );
+
+  checkboxes.forEach((check) => {
+    check.addEventListener("change", () => {
+      filterData(data);
+    });
+  });
+  document.getElementById("alcohol").addEventListener("change", () => {
+    filterData(data);
+  });
+};
+let filterData = (data) => {
+  let checkboxes = Array.from(
+    document.querySelectorAll("input[type=checkbox]:checked")
+  ).map((checkbox) => {
+    return checkbox.value;
+  });
+  let dropdownGroupElem = document.getElementById("alcohol").value;
+  console.log("drop", dropdownGroupElem);
+  console.log(checkboxes);
+  let filteredArray = [];
+  if (checkboxes.length === 0) {
+    displayResults(data);
+  } else {
+    data.forEach((d) => {
+      if (checkboxes.includes(d.first_brewed)) {
+        filteredArray.push(d);
+      }
+    });
+    displayResults(filteredArray);
+  }
+};
 
 //fetch Api
 let method = {
@@ -109,6 +141,7 @@ Promise.all([
       return a.abv - b.abv;
     });
     dropdownSelectorCreator(data);
+    addEvents(data);
 
     displayResults(data);
   });
