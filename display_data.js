@@ -14,45 +14,71 @@ let displayResults = (data) => {
     let td1 = document.createElement("td");
     let td2 = document.createElement("td");
     let td3 = document.createElement("td");
+    let td4 = document.createElement("td");
+    let td5 = document.createElement("td");
 
     numData++;
     td0.innerHTML = numData;
     td1.innerHTML = d.id;
     td2.innerHTML = d.name;
     td3.innerHTML = d.abv;
+    td4.innerHTML = d.description;
+    td5.innerHTML = d.first_brewed;
     tr.appendChild(td0);
     tr.appendChild(td1);
     tr.appendChild(td2);
     tr.appendChild(td3);
+    tr.appendChild(td4);
+    tr.appendChild(td5);
     bodyTable.appendChild(tr);
   });
 };
 // Select Dropdown Button
-let dropdownSelector = (data) => {
+let dropdownSelectorCreator = (data) => {
   let dropdownGroup = document.getElementById("alcohol");
   let filterAlcohol = [];
   data.forEach((d) => {
     filterAlcohol.push(d.abv); //create an array based on Alcohol value;
   });
+  //remove duplicates
   let uniqueArray = filterAlcohol.filter((item, pos) => {
-    //remove duplicates
     return filterAlcohol.indexOf(item) == pos;
   });
-  let integerValue = uniqueArray.filter((elem) => {
-    // select only integer numbers
-    if (Number.isInteger(elem)) {
-      return elem;
-    }
-  });
-  console.log("integerValue", integerValue);
-  integerValue.forEach((elem) => {
+  //creating final selection for dropdown button
+  uniqueArray.forEach((elem) => {
     let option = document.createElement("option");
     option.value = elem;
     option.innerHTML = elem;
     dropdownGroup.appendChild(option);
   });
 };
+//Checkbox selector
+let checkbox = document.getElementById("checkbox-select");
+let checkboxArray = [
+  "IPA",
+  "Lager",
+  "Pale Ale",
+  "brewed before 2011",
+  "brewed after 2011",
+];
+let checkboxSelector = () => {
+  checkboxArray.forEach((check) => {
+    let input = document.createElement("input");
+    let label = document.createElement("label");
+    input.setAttribute("type", "checkbox");
+    input.setAttribute("name", "checkbox-name");
+    input.setAttribute("id", check);
+    label.setAttribute("for", check);
+    label.innerHTML = check;
 
+    console.log(checkbox);
+    checkbox.appendChild(input);
+    checkbox.appendChild(label);
+  });
+};
+checkboxSelector();
+
+//fetch Api
 let method = {
   method: "GET",
   headers: {
@@ -82,7 +108,7 @@ Promise.all([
     data.sort(function (a, b) {
       return a.abv - b.abv;
     });
-    dropdownSelector(data);
+    dropdownSelectorCreator(data);
 
     displayResults(data);
   });
