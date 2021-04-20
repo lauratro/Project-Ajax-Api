@@ -95,16 +95,16 @@ let filterData = (data) => {
   });
 
   console.log(checkboxes);
-  let filteredArray = [];
+  let filterCheckbox = [];
   if (checkboxes.length === 0) {
     displayResults(data);
   } else {
     data.forEach((d) => {
       if (checkboxes.includes(d.first_brewed)) {
-        filteredArray.push(d);
+        filterCheckbox.push(d);
       }
     });
-    displayResults(filteredArray);
+    displayResults(filterCheckbox);
   }
   let dropdownGroupElem = document.getElementById("alcohol").value;
   console.log("drop", dropdownGroupElem);
@@ -119,6 +119,47 @@ let filterData = (data) => {
 
       displayResults(filterDropdown);
     });
+  }
+
+  let filterFinal = [];
+  //1st Nothing is selected
+  if (checkboxes.length == 0 && dropdownGroupElem == "all") {
+    displayResults(data);
+  } else {
+    //only checkbox is selected
+    if (checkboxes.length > 0 && dropdownGroupElem == "all") {
+      data.forEach((d) => {
+        if (checkboxes.includes(d.first_brewed)) {
+          filterCheckbox.push(d);
+        }
+      });
+      displayResults(filterCheckbox);
+      //only dropdown is selected
+    } else if (checkboxes.length == 0 && dropdownGroupElem != "all") {
+      data.forEach((d) => {
+        if (dropdownGroupElem == d.abv) {
+          filterDropdown.push(d);
+        }
+
+        displayResults(filterDropdown);
+      });
+      //Both are selected
+    } else if (filterCheckbox.length > 0) {
+      filterCheckbox.forEach((d) => {
+        if (dropdownGroupElem == d.abv) {
+          filterFinal.push(d);
+        }
+
+        displayResults(filterFinal);
+      });
+    } else if (filterDropdown.length > 0) {
+      filterDropdown.forEach((d) => {
+        if (checkboxes.includes(d.first_brewed)) {
+          filterFinal.push(d);
+        }
+      });
+      displayResults(filterFinal);
+    }
   }
 };
 
