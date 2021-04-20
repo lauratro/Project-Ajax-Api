@@ -52,7 +52,6 @@ let dropdownSelectorCreator = (data) => {
     option.innerHTML = elem;
     dropdownGroup.appendChild(option);
   });
-  console.log(dropdownGroup);
 };
 //Checkbox selector
 let checkboxDiv = document.getElementById("checkbox-select");
@@ -94,8 +93,7 @@ let filterData = (data) => {
   ).map((checkbox) => {
     return checkbox.value;
   });
-  let dropdownGroupElem = document.getElementById("alcohol").value;
-  console.log("drop", dropdownGroupElem);
+
   console.log(checkboxes);
   let filteredArray = [];
   if (checkboxes.length === 0) {
@@ -107,6 +105,20 @@ let filterData = (data) => {
       }
     });
     displayResults(filteredArray);
+  }
+  let dropdownGroupElem = document.getElementById("alcohol").value;
+  console.log("drop", dropdownGroupElem);
+  let filterDropdown = [];
+  if (dropdownGroupElem == "all") {
+    displayResults(data);
+  } else {
+    data.forEach((d) => {
+      if (dropdownGroupElem == d.abv) {
+        filterDropdown.push(d);
+      }
+
+      displayResults(filterDropdown);
+    });
   }
 };
 
