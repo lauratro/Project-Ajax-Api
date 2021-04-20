@@ -1,4 +1,4 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -15,8 +15,8 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="filter.css" />
-    <title>Beer Search</title>
+
+    <title>Filter</title>
   </head>
   <body>
     <header class="nav-other-page">
@@ -62,14 +62,20 @@
     </header>
     <form class="radio" action="beerOverview.html">
       <h4>Select beers according to alcohol content</h4>
-      <input type="radio" id="one" name="alcohol" value="1" />
-      <label for="one">&lt 1% </label>
-      <input type="radio" id="four" name="alcohol" value="4" />
-      <label for="four">&lt 4%</label>
-      <input type="radio" id="six" name="alcohol" value="6" />
-      <label for="six">&gt 4 and &lt 6%</label>
-      <input id="submit-filter" type="submit" value="Submit" />
+      <input type="radio" id="one" name="alcohol" value="one" />
+      <label for="one">until 4% </label>
+      <input type="radio" id="four" name="alcohol" value="four" />
+      <label for="four">&gt 4 and &lt 6%</label>
+      <input type="radio" id="six" name="alcohol" value="six" />
+      <label for="six">&gt 6%</label>
     </form>
+    <label for="cars">Choose a car:</label>
+    <select id="cars" name="cars">
+      <option value="one">One</option>
+      <option value="four">Four</option>
+      <option value="six">Six</option>
+    </select>
+
     <table id="tableResult" class="table table-sm hide">
       <thead>
         <tr>
@@ -79,6 +85,7 @@
       </thead>
       <tbody id="dataResult"></tbody>
     </table>
+
     <button type="button" value="minus">Prev</button>
     <span id="number">1</span>
     <button type="button" value="plus">Next</button>
@@ -90,4 +97,3 @@
     <script src="display_data2.js"></script>
   </body>
 </html>
- -->

@@ -16,7 +16,7 @@
     />
     <link rel="stylesheet" href="style.css" />
 
-    <title>Promise</title>
+    <title>Filter</title>
   </head>
   <body>
     <header class="nav-other-page">
@@ -60,36 +60,24 @@
         </div>
       </nav>
     </header>
-    <form class="radio" action="beerOverview.html">
-      <h4>Select beers according to alcohol content</h4>
-      <input type="radio" id="one" name="alcohol" value="one" />
-      <label for="one">&lt 1% </label>
-      <input type="radio" id="four" name="alcohol" value="four" />
-      <label for="four">&lt 4%</label>
-      <input type="radio" id="six" name="alcohol" value="six" />
-      <label for="six">&gt 4 and &lt 6%</label>
-      <input id="submit-filter" type="submit" value="Submit" />
-    </form>
-    <form class="radio" action="test.html" id="form2">
-      <h4>Select</h4>
-      <input type="radio" id="true" name="alcohol" value="true" />
-      <label for="true">true</label>
-      <input type="radio" id="false" name="alcohol" value="false" />
-      <label for="false">false</label>
-      <input type="radio" id="boh" name="alcohol" value="boh" />
-      <label for="boh">boh</label>
 
-      <input id="submit" type="submit" value="Submit" />
-    </form>
-    <div id="ciao">ciao</div>
+    <label for="alcohol"
+      >Select the beers with a specific volume of alcohol:</label
+    >
+    <select id="alcohol" name="alcohol">
+      <option value="all">All</option>
+    </select>
+
     <table id="tableResult" class="table table-sm hide">
       <thead>
         <tr>
+          <th scope="col">Total Results: <span id="tot"></span></th>
+          <th scope="col">id</th>
           <th scope="col">Name</th>
-          <th scope="col">Alcool</th>
+          <th scope="col">Volume of alcohol (%)</th>
         </tr>
       </thead>
-      <tbody id="dataResult"></tbody>
+      <tbody id="bodyTable"></tbody>
     </table>
 
     <button type="button" value="minus">Prev</button>
