@@ -2,7 +2,7 @@
 let tableResult = document.getElementById("tableResult");
 let bodyTable = document.getElementById("bodyTable");
 let tot = document.getElementById("tot");
-
+let filterBoth = [];
 //Table
 let displayResults = (data) => {
   bodyTable.innerHTML = "";
@@ -72,22 +72,21 @@ let checkboxCreator = (data) => {
     count[i] = (count[i] || 0) + 1;
   });
 
-  console.log("count", count);
   //Filter dates that are more present
   filteredByValue = Object.fromEntries(
     Object.entries(count).filter(([key, value]) => value >= 8)
   );
-  console.log("filteredByValue", filteredByValue);
+
   checkboxDate = Object.keys(filteredByValue);
   let orderedCheckbox = checkboxDate.sort(function (x, y) {
     var xp = x.substring(x.length - 1, x.length);
     var yp = y.substring(y.length - 1, y.length);
     return xp == yp ? 0 : xp < yp ? -1 : 1;
   });
-  console.log("orderedCheckbox", orderedCheckbox);
+  /* console.log("orderedCheckbox", orderedCheckbox);
 
   console.log("filteredByValue", filteredByValue);
-  console.log("checkboxDate", checkboxDate);
+  console.log("checkboxDate", checkboxDate); */
   /*  let checkboxArray = [
     "01/2016",
     "06/2016",
@@ -140,31 +139,20 @@ let filterData = (data) => {
   });
 
   console.log(checkboxes);
-  let filterBoth = [];
-  if (checkboxes.length === 0) {
-    displayResults(data);
-  } else {
-    data.forEach((d) => {
-      if (checkboxes.includes(d.first_brewed)) {
-        filterBoth.push(d);
-      }
-    });
-    displayResults(filterBoth);
-  }
+
   let dropdownGroupElem = document.getElementById("alcohol").value;
   console.log("drop", dropdownGroupElem);
-
-  if (dropdownGroupElem == "all") {
-    displayResults(data);
-  } else {
+  //Filters
+  let functionFilter = (data) => {
+    filterBoth = [];
     data.forEach((d) => {
-      if (dropdownGroupElem == d.abv) {
+      if (checkboxes.includes(d.first_brewed) || dropdownGroupElem == d.abv) {
         filterBoth.push(d);
       }
     });
+    console.log("singleFilter", filterBoth);
     displayResults(filterBoth);
-  }
-
+  };
   let filterFinal = [];
   // Nothing is selected
   if (checkboxes.length == 0 && dropdownGroupElem == "all") {
@@ -172,37 +160,14 @@ let filterData = (data) => {
   } else {
     //only checkbox is selected
     if (checkboxes.length > 0 && dropdownGroupElem == "all") {
-      data.forEach((d) => {
-        if (checkboxes.includes(d.first_brewed)) {
-          filterBoth.push(d);
-        }
-      });
-      displayResults(filterBoth);
+      functionFilter(data);
+
       //only dropdown is selected
     } else if (checkboxes.length == 0 && dropdownGroupElem != "all") {
-      data.forEach((d) => {
-        if (dropdownGroupElem == d.abv) {
-          filterBoth.push(d);
-        }
-      });
-      displayResults(filterBoth);
-      //Both are selected
-    } /* else if (filterCheckbox.length > 0) {
-      filterCheckbox.forEach((d) => {
-        if (dropdownGroupElem == d.abv) {
-          filterFinal.push(d);
-        }
+      functionFilter(data);
 
-        displayResults(filterFinal);
-      });
-    } else if (filterDropdown.length > 0) {
-      filterDropdown.forEach((d) => {
-        if (checkboxes.includes(d.first_brewed)) {
-          filterFinal.push(d);
-        }
-      });
-      displayResults(filterFinal);
-    } */ else {
+      //Both are selected
+    } else {
       data.forEach((d) => {
         if (checkboxes.includes(d.first_brewed) && dropdownGroupElem == d.abv) {
           filterFinal.push(d);
