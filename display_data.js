@@ -38,13 +38,17 @@ let displayResults = (data) => {
 let dropdownSelectorCreator = (data) => {
   let dropdownGroup = document.getElementById("alcohol");
   let filterAlcohol = [];
+  //create an array based on Alcohol value;
   data.forEach((d) => {
-    filterAlcohol.push(d.abv); //create an array based on Alcohol value;
+    if (d.abv < 11) {
+      filterAlcohol.push(d.abv);
+    }
   });
   //remove duplicates
   let uniqueArray = filterAlcohol.filter((item, pos) => {
     return filterAlcohol.indexOf(item) == pos;
   });
+
   //creating final selection for dropdown button
   uniqueArray.forEach((elem) => {
     let option = document.createElement("option");
@@ -53,18 +57,60 @@ let dropdownSelectorCreator = (data) => {
     dropdownGroup.appendChild(option);
   });
 };
-//Checkbox selector
+//Checkbox creator
 let checkboxDiv = document.getElementById("checkbox-select");
+let datesArray = [];
+let filteredByValue = {};
+let checkboxDate = [];
+let checkboxCreator = (data) => {
+  data.forEach((d) => {
+    datesArray.push(d.first_brewed);
+  });
+  //Find out how many times a date is present
+  var count = {};
+  datesArray.forEach(function (i) {
+    count[i] = (count[i] || 0) + 1;
+  });
 
-let checkboxArray = ["2016", "2017", "2018"];
-let checkboxSelector = () => {
-  checkboxArray.map((check) => {
+  console.log("count", count);
+  //Filter dates that are more present
+  filteredByValue = Object.fromEntries(
+    Object.entries(count).filter(([key, value]) => value >= 8)
+  );
+  console.log("filteredByValue", filteredByValue);
+  checkboxDate = Object.keys(filteredByValue);
+  let orderedCheckbox = checkboxDate.sort(function (x, y) {
+    var xp = x.substring(x.length - 1, x.length);
+    var yp = y.substring(y.length - 1, y.length);
+    return xp == yp ? 0 : xp < yp ? -1 : 1;
+  });
+  console.log("orderedCheckbox", orderedCheckbox);
+
+  console.log("filteredByValue", filteredByValue);
+  console.log("checkboxDate", checkboxDate);
+  /*  let checkboxArray = [
+    "01/2016",
+    "06/2016",
+    "03/2015",
+    "09/2013",
+
+    "2016",
+    "2017",
+    "2018",
+  ]; */
+
+  orderedCheckbox.map((check) => {
     let input = document.createElement("input");
     let label = document.createElement("label");
     input.setAttribute("type", "checkbox");
     input.setAttribute("name", "checkbox-name");
+
     input.setAttribute("id", check);
     input.setAttribute("value", check);
+    /*input.classList.add("form-check-input");
+    label.classList.add("form-check-label"); 
+    input.addAttribute("class", "form-check-input");*/
+    input.classList.add("margin-checkbox");
 
     checkboxDiv.appendChild(input);
     checkboxDiv.appendChild(label);
@@ -72,7 +118,6 @@ let checkboxSelector = () => {
   });
 };
 
-checkboxSelector();
 const addEvents = (data) => {
   let checkboxes = Array.from(
     document.querySelectorAll("input[type=checkbox]")
@@ -122,7 +167,7 @@ let filterData = (data) => {
   }
 
   let filterFinal = [];
-  //1st Nothing is selected
+  // Nothing is selected
   if (checkboxes.length == 0 && dropdownGroupElem == "all") {
     displayResults(data);
   } else {
@@ -194,6 +239,7 @@ Promise.all([
       return a.abv - b.abv;
     });
     dropdownSelectorCreator(data);
+    checkboxCreator(data);
     addEvents(data);
 
     displayResults(data);
