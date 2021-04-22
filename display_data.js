@@ -18,6 +18,10 @@ let displayResults = (data) => {
     let td4 = document.createElement("td");
     let td5 = document.createElement("td");
 
+    let td6 = document.createElement("td");
+    let td7 = document.createElement("td");
+    let btnTable = document.createElement("button");
+
     numData++;
     td0.innerHTML = numData;
     td1.innerHTML = d.id;
@@ -25,15 +29,42 @@ let displayResults = (data) => {
     td3.innerHTML = d.abv;
     td4.innerHTML = d.description;
     td5.innerHTML = d.first_brewed;
+    btnTable.innerHTML = "Show More";
+    btnTable.classList.add("button-food");
+    btnTable.classList.add("click-btn");
+
+    td6.innerHTML = d.food_pairing;
+    td6.classList.add("hide-food");
+    td6.classList.add("food-td");
     tr.appendChild(td0);
     tr.appendChild(td1);
     tr.appendChild(td2);
     tr.appendChild(td3);
     tr.appendChild(td4);
     tr.appendChild(td5);
+
+    tr.appendChild(td6);
+    tr.appendChild(btnTable);
+
     bodyTable.appendChild(tr);
   });
+  //Show food column
+  let foodTd = Array.from(document.querySelectorAll(".food-td"));
+
+  let allBtn = Array.from(document.querySelectorAll(".button-food"));
+
+  for (let i = 0; i < allBtn.length; i++) {
+    allBtn[i].addEventListener("click", () => {
+      allBtn[i].innerHTML = "Show Less";
+
+      foodTd[i].classList.toggle("show-food");
+      if (!foodTd[i].classList.contains("show-food")) {
+        allBtn[i].innerHTML = "Show more";
+      }
+    });
+  }
 };
+
 // Select Dropdown Button
 let dropdownSelectorCreator = (data) => {
   let dropdownGroup = document.getElementById("alcohol");
@@ -83,20 +114,7 @@ let checkboxCreator = (data) => {
     var yp = y.substring(y.length - 1, y.length);
     return xp == yp ? 0 : xp < yp ? -1 : 1;
   });
-  /* console.log("orderedCheckbox", orderedCheckbox);
-
-  console.log("filteredByValue", filteredByValue);
-  console.log("checkboxDate", checkboxDate); */
-  /*  let checkboxArray = [
-    "01/2016",
-    "06/2016",
-    "03/2015",
-    "09/2013",
-
-    "2016",
-    "2017",
-    "2018",
-  ]; */
+  /* console.log("orderedCheckbox", orderedCheckbox);*/
 
   orderedCheckbox.map((check) => {
     let input = document.createElement("input");
@@ -106,9 +124,7 @@ let checkboxCreator = (data) => {
 
     input.setAttribute("id", check);
     input.setAttribute("value", check);
-    /*input.classList.add("form-check-input");
-    label.classList.add("form-check-label"); 
-    input.addAttribute("class", "form-check-input");*/
+
     input.classList.add("margin-checkbox");
 
     checkboxDiv.appendChild(input);
@@ -131,6 +147,17 @@ const addEvents = (data) => {
     filterData(data);
   });
 };
+//Filters
+let functionFilter = (data, checkboxes, dropdownGroupElem) => {
+  filterBoth = [];
+  data.forEach((d) => {
+    if (checkboxes.includes(d.first_brewed) || dropdownGroupElem == d.abv) {
+      filterBoth.push(d);
+    }
+  });
+  console.log("singleFilter", filterBoth);
+  displayResults(filterBoth);
+};
 let filterData = (data) => {
   let checkboxes = Array.from(
     document.querySelectorAll("input[type=checkbox]:checked")
@@ -142,17 +169,7 @@ let filterData = (data) => {
 
   let dropdownGroupElem = document.getElementById("alcohol").value;
   console.log("drop", dropdownGroupElem);
-  //Filters
-  let functionFilter = (data) => {
-    filterBoth = [];
-    data.forEach((d) => {
-      if (checkboxes.includes(d.first_brewed) || dropdownGroupElem == d.abv) {
-        filterBoth.push(d);
-      }
-    });
-    console.log("singleFilter", filterBoth);
-    displayResults(filterBoth);
-  };
+
   let filterFinal = [];
   // Nothing is selected
   if (checkboxes.length == 0 && dropdownGroupElem == "all") {
@@ -160,11 +177,11 @@ let filterData = (data) => {
   } else {
     //only checkbox is selected
     if (checkboxes.length > 0 && dropdownGroupElem == "all") {
-      functionFilter(data);
+      functionFilter(data, checkboxes, dropdownGroupElem);
 
       //only dropdown is selected
     } else if (checkboxes.length == 0 && dropdownGroupElem != "all") {
-      functionFilter(data);
+      functionFilter(data, checkboxes, dropdownGroupElem);
 
       //Both are selected
     } else {

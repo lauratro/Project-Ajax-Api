@@ -14,3 +14,24 @@
 .margin-checkbox {
   margin: 6px;
 }
+/*FOOD*/
+.hide-food,
+.hide-food-th {
+  display: none;
+}
+.show-food {
+  display: block;
+}
+select {
+  margin: 0 auto;
+}
+
+table {
+  margin: 0 auto;
+}
+.hide-descr {
+  display: none;
+}
+.show-descr {
+  display: block;
+}

@@ -61,18 +61,83 @@
         </div>
       </nav>
     </header>
-
-    <label for="alcohol"
-      >Select the beers with a specific volume of alcohol:</label
+    <div class="container">
+      <div class="row pt-3">
+        <div class="col col-12 col-sm-6 mt-3">
+          <label for="alcohol" class="font-weight-bold label"
+            >Select the beers with a specific volume of alcohol:</label
+          >
+          <select id="alcohol" name="alcohol">
+            <option value="all">All</option>
+          </select>
+        </div>
+        <div class="col col-12 col-sm-6 mt-3">
+          <p class="text-center font-weight-bold">
+            Product for the first time in:
+          </p>
+          <div id="checkbox-select" class="form-check"></div>
+        </div>
+      </div>
+    </div>
+    <!-- Button trigger modal 
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-toggle="modal"
+      data-target="#exampleModal"
     >
-    <select id="alcohol" name="alcohol">
-      <option value="all">All</option>
-    </select>
-    <p>Product for the first time in:</p>
-    <div id="checkbox-select" class="form-check"></div>
+      Launch demo modal
+    </button>-->
 
-    <table id="tableResult" class="table table-striped table-responsive">
-      <thead>
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Food Pairing</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <!-- <div class="modal-body" id="bodyMod">...</div> -->
+          <div class="modal-body">
+            <div class="container">
+              <div class="row">
+                <div class="col" id="bodyMod"></div>
+                <div class="col" id="bodyModpic" src=""></div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+            <!--  <button type="button" class="btn btn-primary">Save changes</button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <table
+      id="tableResult"
+      class="table table-striped .table-responsive{-sm|-md|-lg|-xl}"
+    >
+      <thead class="thead-dark">
         <tr>
           <th scope="col">Total Results: <span id="tot"></span></th>
           <th scope="col">id</th>
@@ -80,6 +145,8 @@
           <th scope="col">Volume of alcohol (%)</th>
           <th scope="col">Description</th>
           <th scope="col">First brewed</th>
+
+          <th scope="col">Food Pairing</th>
         </tr>
       </thead>
       <tbody id="bodyTable"></tbody>
@@ -90,6 +157,21 @@
       integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
       crossorigin="anonymous"
     ></script>
-    <script src="display_data.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+      integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+      integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+      crossorigin="anonymous"
+    ></script>
+    <script src="test.js"></script>
   </body>
 </html>
