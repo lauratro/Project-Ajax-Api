@@ -2,7 +2,9 @@ body {
   background: radial-gradient(#4e3022, #161616);
   background-size: cover;
 }
-
+.first-container {
+  height: 100vh;
+}
 #central-pic {
   display: flex;
 }
@@ -26,6 +28,9 @@ body {
   transform: translateY(0%);
 }
 .hide-text {
+  display: none;
+}
+.hide-text-3 {
   display: none;
 }
 .show-text {
