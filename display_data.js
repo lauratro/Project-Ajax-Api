@@ -9,7 +9,9 @@ let displayResults = (data) => {
   tableResult.classList.toggle("showTable");
   let numData = "";
   tot.innerHTML = data.length;
-  data.forEach((d) => {
+  let modalContainer = document.getElementById("modal-container");
+  let modal = "";
+  data.forEach((d, index) => {
     let tr = document.createElement("tr");
     let td0 = document.createElement("td");
     let td1 = document.createElement("td");
@@ -29,6 +31,36 @@ let displayResults = (data) => {
     td4due.innerHTML = d.description.substring(70);
     td4due.classList.add("hide-descr");
     td4due.classList.add("sec-descr");
+
+    //Button Modal
+    let btnModal = document.createElement("button");
+    btnModal.innerHTML = "Show More";
+
+    // btnModal.setAttribute("id", "modalBtn" + d.name);
+    btnModal.setAttribute("data-toggle", "modal");
+    btnModal.setAttribute("data-target", `#modal${index}`);
+    // btnModal.classList.add("button-food");
+
+    modal += `<div class="modal fade" id="modal${index}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <p>${d.name}</p>
+      <p>${d.food_pairing}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>`;
 
     numData++;
     td0.innerHTML = numData;
@@ -53,12 +85,13 @@ let displayResults = (data) => {
     td4.appendChild(td4due);
     td4.appendChild(btnDescr);
     tr.appendChild(td6);
-    tr.appendChild(btnTable);
+    tr.appendChild(btnModal);
 
     bodyTable.appendChild(tr);
   });
+  modalContainer.innerHTML = modal;
   //Show food column
-  let foodTd = Array.from(document.querySelectorAll(".food-td"));
+  /*  let foodTd = Array.from(document.querySelectorAll(".food-td"));
 
   let allBtn = Array.from(document.querySelectorAll(".button-food"));
 
@@ -71,7 +104,7 @@ let displayResults = (data) => {
         allBtn[i].innerHTML = "Show more";
       }
     });
-  }
+  } */
   //Description show more and Less
   let allSecDescr = Array.from(document.querySelectorAll(".sec-descr"));
 
