@@ -21,13 +21,21 @@ let displayResults = (data) => {
     let td6 = document.createElement("td");
     let td7 = document.createElement("td");
     let btnTable = document.createElement("button");
+    //Description
+    let btnDescr = document.createElement("button");
+    btnDescr.classList.add("descrBtn");
+    btnDescr.innerHTML = "Show More";
+    let td4due = document.createElement("p");
+    td4due.innerHTML = d.description.substring(70);
+    td4due.classList.add("hide-descr");
+    td4due.classList.add("sec-descr");
 
     numData++;
     td0.innerHTML = numData;
     td1.innerHTML = d.id;
     td2.innerHTML = d.name;
     td3.innerHTML = d.abv;
-    td4.innerHTML = d.description;
+    td4.innerHTML = d.description.substring(0, 70);
     td5.innerHTML = d.first_brewed;
     btnTable.innerHTML = "Show More";
     btnTable.classList.add("button-food");
@@ -42,7 +50,8 @@ let displayResults = (data) => {
     tr.appendChild(td3);
     tr.appendChild(td4);
     tr.appendChild(td5);
-
+    td4.appendChild(td4due);
+    td4.appendChild(btnDescr);
     tr.appendChild(td6);
     tr.appendChild(btnTable);
 
@@ -60,6 +69,21 @@ let displayResults = (data) => {
       foodTd[i].classList.toggle("show-food");
       if (!foodTd[i].classList.contains("show-food")) {
         allBtn[i].innerHTML = "Show more";
+      }
+    });
+  }
+  //Description show more and Less
+  let allSecDescr = Array.from(document.querySelectorAll(".sec-descr"));
+
+  let allBtnDescr = Array.from(document.querySelectorAll(".descrBtn"));
+  for (let i = 0; i < allBtnDescr.length; i++) {
+    allBtnDescr[i].addEventListener("click", () => {
+      allBtnDescr[i].innerHTML = "Show Less";
+
+      allSecDescr[i].classList.toggle("show-descr");
+
+      if (!allSecDescr[i].classList.contains("show-descr")) {
+        allBtnDescr[i].innerHTML = "Show more";
       }
     });
   }
