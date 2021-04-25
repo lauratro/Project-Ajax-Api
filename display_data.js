@@ -36,32 +36,66 @@ let displayResults = (data) => {
     let btnModal = document.createElement("button");
     btnModal.innerHTML = "Show More";
 
-    // btnModal.setAttribute("id", "modalBtn" + d.name);
     btnModal.setAttribute("data-toggle", "modal");
-    btnModal.setAttribute("data-target", `#modal${index}`);
+    btnModal.setAttribute("data-target", `#modal${d.id}`);
     // btnModal.classList.add("button-food");
 
-    modal += `<div class="modal fade" id="modal${index}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      <p>${d.name}</p>
-      <p>${d.food_pairing}</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>`;
+    //Modal structure
+    let externalDiv = document.createElement("div");
+    externalDiv.classList.add("modal");
+    externalDiv.classList.add("fade");
+    externalDiv.setAttribute("id", `modal${d.id}`);
+    externalDiv.setAttribute("tabindex", "-1");
+    externalDiv.setAttribute("aria-labelledby", "exampleModalLabel");
+    externalDiv.setAttribute("aria-hidden", "true");
+    modalContainer.appendChild(externalDiv);
+    let dialogDiv = document.createElement("div");
+    dialogDiv.classList.add("modal-dialog");
+    externalDiv.appendChild(dialogDiv);
+    let contentDiv = document.createElement("div");
+    contentDiv.classList.add("modal-content");
+    dialogDiv.appendChild(contentDiv);
+    let headerDiv = document.createElement("div");
+    headerDiv.classList.add("modal-header");
+    contentDiv.appendChild(headerDiv);
+    let h5Title = document.createElement("h5");
+    h5Title.classList.add("modal-title");
+    h5Title.innerHTML = "Food Pairing";
+    h5Title.setAttribute("id", "exampleModalLabel");
+    headerDiv.appendChild(h5Title);
+    let closeButton = document.createElement("button");
+    closeButton.classList.add("close");
+    closeButton.setAttribute("type", "button");
+    closeButton.setAttribute("data-dismiss", "modal");
+    closeButton.setAttribute("aria-label", "Close");
+    headerDiv.appendChild(closeButton);
+    let spanX = document.createElement("span");
+    spanX.setAttribute("aria-hidden", "true");
+    spanX.innerHTML = "&times;";
+    closeButton.appendChild(spanX);
+    let bodyDiv = document.createElement("div");
+    bodyDiv.classList.add("modal-body");
+    contentDiv.appendChild(bodyDiv);
+    let pName = document.createElement("p");
+    pName.innerHTML = d.name;
+    bodyDiv.appendChild(pName);
+    let pFood = document.createElement("p");
+    pFood.innerHTML = d.food_pairing;
+    bodyDiv.appendChild(pFood);
+    let footerDiv = document.createElement("div");
+    footerDiv.classList.add("modal-footer");
+    contentDiv.appendChild(footerDiv);
+    let footerCloseBtn = document.createElement("button");
+    footerCloseBtn.setAttribute("type", "button");
+    footerCloseBtn.classList.add("btn");
+    footerCloseBtn.classList.add("btn-secondary");
+    footerCloseBtn.setAttribute("data-dismiss", "modal");
+    footerCloseBtn.innerHTML = "Close";
+    footerDiv.appendChild(footerCloseBtn);
 
+    console.log("modal", modalContainer);
+    console.log("external", externalDiv);
+    //
     numData++;
     td0.innerHTML = numData;
     td1.innerHTML = d.id;
@@ -89,22 +123,7 @@ let displayResults = (data) => {
 
     bodyTable.appendChild(tr);
   });
-  modalContainer.innerHTML = modal;
-  //Show food column
-  /*  let foodTd = Array.from(document.querySelectorAll(".food-td"));
 
-  let allBtn = Array.from(document.querySelectorAll(".button-food"));
-
-  for (let i = 0; i < allBtn.length; i++) {
-    allBtn[i].addEventListener("click", () => {
-      allBtn[i].innerHTML = "Show Less";
-
-      foodTd[i].classList.toggle("show-food");
-      if (!foodTd[i].classList.contains("show-food")) {
-        allBtn[i].innerHTML = "Show more";
-      }
-    });
-  } */
   //Description show more and Less
   let allSecDescr = Array.from(document.querySelectorAll(".sec-descr"));
 
