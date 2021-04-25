@@ -10,35 +10,42 @@ let displayResults = (data) => {
   let numData = "";
   tot.innerHTML = data.length;
   let modalContainer = document.getElementById("modal-container");
-  let modal = "";
+
   data.forEach((d, index) => {
     let tr = document.createElement("tr");
+    tr.classList.add("internal-tr");
     let td0 = document.createElement("td");
     let td1 = document.createElement("td");
     let td2 = document.createElement("td");
+    td2.classList.add("font-weight-bold");
     let td3 = document.createElement("td");
     let td4 = document.createElement("td");
+
     let td5 = document.createElement("td");
 
     let td6 = document.createElement("td");
     let td7 = document.createElement("td");
     let btnTable = document.createElement("button");
     //Description
-    let btnDescr = document.createElement("button");
-    btnDescr.classList.add("descrBtn");
-    btnDescr.innerHTML = "Show More";
-    let td4due = document.createElement("p");
+    let pDescr = document.createElement("p");
+    pDescr.classList.add("descrBtn");
+
+    pDescr.innerHTML = "...Read More";
+    let td4one = document.createElement("span");
+    td4one.classList.add("first-descr");
+    td4.appendChild(td4one);
+    let td4due = document.createElement("span");
+
     td4due.innerHTML = d.description.substring(70);
     td4due.classList.add("hide-descr");
     td4due.classList.add("sec-descr");
-
     //Button Modal
     let btnModal = document.createElement("button");
     btnModal.innerHTML = "Show More";
 
     btnModal.setAttribute("data-toggle", "modal");
     btnModal.setAttribute("data-target", `#modal${d.id}`);
-    // btnModal.classList.add("button-food");
+    btnModal.classList.add("button-food");
 
     //Modal structure
     let externalDiv = document.createElement("div");
@@ -101,7 +108,7 @@ let displayResults = (data) => {
     td1.innerHTML = d.id;
     td2.innerHTML = d.name;
     td3.innerHTML = d.abv;
-    td4.innerHTML = d.description.substring(0, 70);
+    td4one.innerHTML = d.description.substring(0, 70);
     td5.innerHTML = d.first_brewed;
     btnTable.innerHTML = "Show More";
     btnTable.classList.add("button-food");
@@ -117,7 +124,7 @@ let displayResults = (data) => {
     tr.appendChild(td4);
     tr.appendChild(td5);
     td4.appendChild(td4due);
-    td4.appendChild(btnDescr);
+    td4.appendChild(pDescr);
     tr.appendChild(td6);
     tr.appendChild(btnModal);
 
@@ -135,7 +142,7 @@ let displayResults = (data) => {
       allSecDescr[i].classList.toggle("show-descr");
 
       if (!allSecDescr[i].classList.contains("show-descr")) {
-        allBtnDescr[i].innerHTML = "Show more";
+        allBtnDescr[i].innerHTML = "...Read more";
       }
     });
   }
