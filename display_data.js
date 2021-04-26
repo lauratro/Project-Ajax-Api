@@ -3,6 +3,7 @@ let tableResult = document.getElementById("tableResult");
 let bodyTable = document.getElementById("bodyTable");
 let tot = document.getElementById("tot");
 let filterBoth = [];
+
 //Table
 let displayResults = (data) => {
   bodyTable.innerHTML = "";
@@ -10,6 +11,7 @@ let displayResults = (data) => {
   let numData = "";
   tot.innerHTML = data.length;
   let modalContainer = document.getElementById("modal-container");
+  let resultNumber = document.getElementById("resultNumber");
 
   data.forEach((d, index) => {
     let tr = document.createElement("tr");
@@ -24,7 +26,7 @@ let displayResults = (data) => {
     let td5 = document.createElement("td");
 
     let td6 = document.createElement("td");
-    let td7 = document.createElement("td");
+
     let btnTable = document.createElement("button");
     //Description
     let pDescr = document.createElement("p");
@@ -87,20 +89,21 @@ let displayResults = (data) => {
     contentDiv.appendChild(bodyDiv);
     let pName = document.createElement("p");
     pName.innerHTML = d.name;
+    pName.classList.add("font-weight-bold");
     bodyDiv.appendChild(pName);
     let flexDiv = document.createElement("div");
     bodyDiv.appendChild(flexDiv);
     flexDiv.classList.add("displ-flex-around");
-    let pFood = document.createElement("ul");
-    pFood.classList.add("mx-3");
+    let ulFood = document.createElement("ul");
+    ulFood.classList.add("mx-3");
     let foodArray = d.food_pairing;
     foodArray.forEach((f) => {
       let li = document.createElement("li");
       li.innerHTML = f;
-      pFood.appendChild(li);
+      ulFood.appendChild(li);
     });
 
-    flexDiv.appendChild(pFood);
+    flexDiv.appendChild(ulFood);
     let picBeer = document.createElement("img");
     picBeer.classList.add("pictureModal");
     picBeer.setAttribute("src", d.image_url);
@@ -119,17 +122,24 @@ let displayResults = (data) => {
 
     numData++;
     td0.innerHTML = numData;
+    resultNumber.innerHTML = "Search Results: " + numData;
+    td0.setAttribute("data-label", "Beer:");
     td1.innerHTML = d.id;
+    td1.setAttribute("data-label", "Id");
     td2.innerHTML = d.name;
+    td2.setAttribute("data-label", "Name");
     td3.innerHTML = d.abv;
+    td3.setAttribute("data-label", "Volume of Alcohol (%)");
 
     td5.innerHTML = d.first_brewed;
+    td5.setAttribute("data-label", "First Brewed");
     btnTable.innerHTML = "Show More";
     btnTable.classList.add("button-food");
     btnTable.classList.add("click-btn");
+    td4.setAttribute("data-label", "Description");
 
-    td6.innerHTML = d.food_pairing;
     td6.classList.add("hide-food");
+    td6.setAttribute("data-label", "Food Pairing");
     td6.classList.add("food-td");
     tr.appendChild(td0);
     tr.appendChild(td1);

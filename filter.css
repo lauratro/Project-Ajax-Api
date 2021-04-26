@@ -1,5 +1,8 @@
 /*General*/
-
+.main-filter {
+  margin-right: 20px;
+  margin-left: 20px;
+}
 .displ-flex-around {
   display: flex;
   justify-content: space-around;
@@ -20,13 +23,72 @@
 }
 /*Titles*/
 .image-backgr {
-  background-image: url("/img/barTables_sm.jpg");
+  clip-path: polygon(
+    20% 0%,
+    80% 0%,
+    100% 20%,
+    100% 80%,
+    80% 100%,
+    20% 100%,
+    0% 80%,
+    0% 20%
+  );
   width: 100%;
-  height: 30vh;
+  height: auto;
+  margin: 0 auto;
+
+  opacity: 0.8;
 }
 .filter-titles {
-  color: white;
-  text-shadow: 5px -1px 2px rgba(150, 150, 150, 1);
+  color: black;
+}
+.titles {
+  font-size: 2rem;
+  font-weight: 900 !important;
+  background-color: rgba(110, 110, 109, 0.5);
+  padding: 5px;
+  margin-top: 95px;
+}
+@media screen and(min-width:1076px) {
+  .image-backgr {
+    width: 80%;
+  }
+}
+@media (max-width: 576px) {
+  .titles {
+    margin-top: 15px;
+  }
+}
+@media (max-width: 768px) {
+  .titles {
+    font-size: 1rem;
+    margin-bottom: 15px;
+  }
+  .filter-style {
+    margin: 20px;
+    width: 90% !important;
+    flex: 0 0 90%;
+  }
+}
+/*Filters*/
+.filter-style {
+  box-shadow: -1px 2px 19px 3px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: -1px 2px 19px 3px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -1px 2px 19px 3px rgba(0, 0, 0, 0.75);
+}
+
+#resultNumber {
+  display: none;
+  padding: 15px;
+  width: 80%;
+  margin: 0 auto;
+  font-weight: bold;
+  text-align: center;
+}
+@media (max-width: 768px) {
+  #resultNumber {
+    display: block;
+  }
 }
 /*FOOD*/
 .hide-food,
@@ -55,6 +117,7 @@ table {
 }
 .internal-tr {
   transition: all 0.2s ease-in;
+  text-align: center;
 }
 .internal-tr:hover {
   background-color: #f5f5f5;
@@ -71,7 +134,8 @@ table {
   font-style: italic;
   text-decoration: underline;
 }
-.descrBtn:hover {
+.descrBtn:hover,
+.button-food:hover {
   color: rgb(139, 69, 19);
 }
 .first-descr,
@@ -82,4 +146,41 @@ table {
 .button-food {
   margin: 5px;
   margin-top: 25%;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 3px;
+}
+/*Table responsive*/
+@media (max-width: 768px) {
+  .table thead {
+    display: none;
+  }
+  .table,
+  .table tbody,
+  .table tr,
+  .table td {
+    display: block;
+    width: 100%;
+  }
+  .table tr {
+    margin-bottom: 15px;
+  }
+  .table tbody tr td {
+    text-align: right;
+    padding-left: 50%;
+    position: relative;
+  }
+  .table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+    width: 50%;
+    padding-left: 15px;
+    font-weight: 600;
+    font-size: 14px;
+    text-align: left;
+  }
+  .button-food {
+    margin-top: 20px;
+  }
 }
