@@ -1,3 +1,10 @@
+/*General*/
+
+.displ-flex-around {
+  display: flex;
+  justify-content: space-around;
+}
+
 .radio input {
   margin: 5px;
 }
@@ -8,11 +15,18 @@
   display: block;
 }
 
-#noResult {
-  display: none;
-}
 .margin-checkbox {
   margin: 6px;
+}
+/*Titles*/
+.image-backgr {
+  background-image: url("/img/barTables_sm.jpg");
+  width: 100%;
+  height: 30vh;
+}
+.filter-titles {
+  color: white;
+  text-shadow: 5px -1px 2px rgba(150, 150, 150, 1);
 }
 /*FOOD*/
 .hide-food,
@@ -36,7 +50,8 @@ table {
   display: block;
 }
 .pictureModal {
-  max-width: 50%;
+  width: auto;
+  height: 200px;
 }
 .internal-tr {
   transition: all 0.2s ease-in;

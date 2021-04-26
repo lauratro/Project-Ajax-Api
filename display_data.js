@@ -33,10 +33,11 @@ let displayResults = (data) => {
     pDescr.innerHTML = "...Read More";
     let td4one = document.createElement("span");
     td4one.classList.add("first-descr");
+    td4one.innerHTML = d.description.substring(0, 70);
     td4.appendChild(td4one);
     let td4due = document.createElement("span");
 
-    td4due.innerHTML = d.description.substring(70);
+    td4due.innerHTML = d.description;
     td4due.classList.add("hide-descr");
     td4due.classList.add("sec-descr");
     //Button Modal
@@ -82,13 +83,29 @@ let displayResults = (data) => {
     closeButton.appendChild(spanX);
     let bodyDiv = document.createElement("div");
     bodyDiv.classList.add("modal-body");
+    bodyDiv.classList.add("px-3");
     contentDiv.appendChild(bodyDiv);
     let pName = document.createElement("p");
     pName.innerHTML = d.name;
     bodyDiv.appendChild(pName);
-    let pFood = document.createElement("p");
-    pFood.innerHTML = d.food_pairing;
-    bodyDiv.appendChild(pFood);
+    let flexDiv = document.createElement("div");
+    bodyDiv.appendChild(flexDiv);
+    flexDiv.classList.add("displ-flex-around");
+    let pFood = document.createElement("ul");
+    pFood.classList.add("mx-3");
+    let foodArray = d.food_pairing;
+    foodArray.forEach((f) => {
+      let li = document.createElement("li");
+      li.innerHTML = f;
+      pFood.appendChild(li);
+    });
+
+    flexDiv.appendChild(pFood);
+    let picBeer = document.createElement("img");
+    picBeer.classList.add("pictureModal");
+    picBeer.setAttribute("src", d.image_url);
+    flexDiv.appendChild(picBeer);
+
     let footerDiv = document.createElement("div");
     footerDiv.classList.add("modal-footer");
     contentDiv.appendChild(footerDiv);
@@ -100,15 +117,12 @@ let displayResults = (data) => {
     footerCloseBtn.innerHTML = "Close";
     footerDiv.appendChild(footerCloseBtn);
 
-    console.log("modal", modalContainer);
-    console.log("external", externalDiv);
-    //
     numData++;
     td0.innerHTML = numData;
     td1.innerHTML = d.id;
     td2.innerHTML = d.name;
     td3.innerHTML = d.abv;
-    td4one.innerHTML = d.description.substring(0, 70);
+
     td5.innerHTML = d.first_brewed;
     btnTable.innerHTML = "Show More";
     btnTable.classList.add("button-food");
@@ -133,12 +147,12 @@ let displayResults = (data) => {
 
   //Description show more and Less
   let allSecDescr = Array.from(document.querySelectorAll(".sec-descr"));
-
+  let allFirstDescr = Array.from(document.querySelectorAll(".first-descr"));
   let allBtnDescr = Array.from(document.querySelectorAll(".descrBtn"));
   for (let i = 0; i < allBtnDescr.length; i++) {
     allBtnDescr[i].addEventListener("click", () => {
       allBtnDescr[i].innerHTML = "Show Less";
-
+      allFirstDescr[i].classList.toggle("hide-descr");
       allSecDescr[i].classList.toggle("show-descr");
 
       if (!allSecDescr[i].classList.contains("show-descr")) {
@@ -197,7 +211,6 @@ let checkboxCreator = (data) => {
     var yp = y.substring(y.length - 1, y.length);
     return xp == yp ? 0 : xp < yp ? -1 : 1;
   });
-  /* console.log("orderedCheckbox", orderedCheckbox);*/
 
   orderedCheckbox.map((check) => {
     let input = document.createElement("input");
@@ -238,7 +251,7 @@ let functionFilter = (data, checkboxes, dropdownGroupElem) => {
       filterBoth.push(d);
     }
   });
-  console.log("singleFilter", filterBoth);
+
   displayResults(filterBoth);
 };
 let filterData = (data) => {
@@ -247,12 +260,7 @@ let filterData = (data) => {
   ).map((checkbox) => {
     return checkbox.value;
   });
-
-  console.log(checkboxes);
-
   let dropdownGroupElem = document.getElementById("alcohol").value;
-  console.log("drop", dropdownGroupElem);
-
   let filterFinal = [];
   // Nothing is selected
   if (checkboxes.length == 0 && dropdownGroupElem == "all") {
