@@ -16,6 +16,12 @@ body {
   height: 300px;
   cursor: pointer;
 }
+@media (max-width: 576px) {
+  .half-pic {
+    width: 100px;
+    height: 200px;
+  }
+}
 .cocktail-viola-left {
   transform: translateY(10%);
   transition: all 0.5 ease;
@@ -26,6 +32,7 @@ body {
 }
 .close {
   transform: translateY(0%);
+  opacity: 1;
 }
 .hide-text {
   display: none;
@@ -42,6 +49,9 @@ body {
 }
 .card-div {
   margin-bottom: 20px;
+}
+.paral-text {
+  font-size: 40px;
 }
 .parallax {
   background: rgba(0, 0, 0, 0.5);
