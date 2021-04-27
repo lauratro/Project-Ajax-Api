@@ -36,6 +36,13 @@ body {
 .show-text {
   display: block;
 }
+.btn-home {
+  color: white;
+  background-color: chocolate;
+}
+.card-div {
+  margin-bottom: 20px;
+}
 .parallax {
   background: rgba(0, 0, 0, 0.5);
 
@@ -48,7 +55,7 @@ body {
   justify-content: center;
   align-items: center;
   transform: translateY(100%);
-  transition: transform 5s ease-out 1s;
+  transition: transform 5s ease-out 0.5s;
 }
 .parallaxScroll {
   transform: translateY(-100%);
@@ -60,7 +67,7 @@ body {
 }
 .parallaxText2 {
   opacity: 0;
-  transition: all 3s ease-in-out 0.5s;
+  transition: all 3s ease-in-out 0.2s;
 }
 
 .parallaxTextShow {

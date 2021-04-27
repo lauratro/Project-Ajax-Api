@@ -16,7 +16,9 @@ body {
 nav {
   background: radial-gradient(#4e3022, #161616);
 }
-
+.text-underline {
+  text-decoration: underline;
+}
 .main {
   top: 80px;
 }
@@ -26,4 +28,5 @@ nav {
 .footer {
   top: 100px;
   padding: 20px;
+  background: radial-gradient(#4e3022, #161616);
 }
