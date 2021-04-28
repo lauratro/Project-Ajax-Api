@@ -2,7 +2,9 @@
 let tableResult = document.getElementById("tableResult");
 let bodyTable = document.getElementById("bodyTable");
 let tot = document.getElementById("tot");
+let tot2 = document.getElementById("tot2");
 let filterBoth = [];
+let noResult = document.getElementById("noResult");
 
 //Table
 let displayResults = (data) => {
@@ -10,151 +12,162 @@ let displayResults = (data) => {
   tableResult.classList.toggle("showTable");
   let numData = "";
   tot.innerHTML = data.length;
+  tot2.innerHTML = data.length;
   let modalContainer = document.getElementById("modal-container");
   let resultNumber = document.getElementById("resultNumber");
+  if (data.length) {
+    data.forEach((d, index) => {
+      noResult.innerHTML = "";
 
-  data.forEach((d, index) => {
-    let tr = document.createElement("tr");
-    tr.classList.add("internal-tr");
-    let td0 = document.createElement("td");
-    let td1 = document.createElement("td");
-    let td2 = document.createElement("td");
-    td2.classList.add("font-weight-bold");
-    let td3 = document.createElement("td");
-    let td4 = document.createElement("td");
+      let tr = document.createElement("tr");
+      tr.classList.add("internal-tr");
+      let td0 = document.createElement("td");
+      let td1 = document.createElement("td");
+      let td2 = document.createElement("td");
+      td2.classList.add("font-weight-bold");
+      let td3 = document.createElement("td");
+      let td4 = document.createElement("td");
 
-    let td5 = document.createElement("td");
+      let td5 = document.createElement("td");
 
-    let td6 = document.createElement("td");
+      let td6 = document.createElement("td");
 
-    let btnTable = document.createElement("button");
-    //Description
-    let pDescr = document.createElement("p");
-    pDescr.classList.add("descrBtn");
+      let btnTable = document.createElement("button");
+      //Description
+      let pDescr = document.createElement("p");
+      pDescr.classList.add("descrBtn");
 
-    pDescr.innerHTML = "...Read More";
-    let td4one = document.createElement("span");
-    td4one.classList.add("first-descr");
-    td4one.innerHTML = d.description.substring(0, 70);
-    td4.appendChild(td4one);
-    let td4due = document.createElement("span");
+      pDescr.innerHTML = "...Read More";
+      let td4one = document.createElement("span");
+      td4one.classList.add("first-descr");
+      td4one.innerHTML = d.description.substring(0, 70);
+      td4.appendChild(td4one);
+      let td4due = document.createElement("span");
 
-    td4due.innerHTML = d.description;
-    td4due.classList.add("hide-descr");
-    td4due.classList.add("sec-descr");
-    //Button Modal
-    let btnModal = document.createElement("button");
-    btnModal.innerHTML = "Show More";
+      td4due.innerHTML = d.description;
+      td4due.classList.add("hide-descr");
+      td4due.classList.add("sec-descr");
 
-    btnModal.setAttribute("data-toggle", "modal");
-    btnModal.setAttribute("data-target", `#modal${d.id}`);
-    btnModal.classList.add("button-food");
+      //Button Modal
+      let btnModal = document.createElement("button");
+      btnModal.innerHTML = "Show More";
 
-    //Modal structure
-    let externalDiv = document.createElement("div");
-    externalDiv.classList.add("modal");
-    externalDiv.classList.add("fade");
-    externalDiv.setAttribute("id", `modal${d.id}`);
-    externalDiv.setAttribute("tabindex", "-1");
-    externalDiv.setAttribute("aria-labelledby", "exampleModalLabel");
-    externalDiv.setAttribute("aria-hidden", "true");
-    modalContainer.appendChild(externalDiv);
-    let dialogDiv = document.createElement("div");
-    dialogDiv.classList.add("modal-dialog");
-    externalDiv.appendChild(dialogDiv);
-    let contentDiv = document.createElement("div");
-    contentDiv.classList.add("modal-content");
-    dialogDiv.appendChild(contentDiv);
-    let headerDiv = document.createElement("div");
-    headerDiv.classList.add("modal-header");
-    contentDiv.appendChild(headerDiv);
-    let h5Title = document.createElement("h5");
-    h5Title.classList.add("modal-title");
-    h5Title.innerHTML = "Food Pairing";
-    h5Title.setAttribute("id", "exampleModalLabel");
-    headerDiv.appendChild(h5Title);
-    let closeButton = document.createElement("button");
-    closeButton.classList.add("close");
-    closeButton.setAttribute("type", "button");
-    closeButton.setAttribute("data-dismiss", "modal");
-    closeButton.setAttribute("aria-label", "Close");
-    headerDiv.appendChild(closeButton);
-    let spanX = document.createElement("span");
-    spanX.setAttribute("aria-hidden", "true");
-    spanX.innerHTML = "&times;";
-    closeButton.appendChild(spanX);
-    let bodyDiv = document.createElement("div");
-    bodyDiv.classList.add("modal-body");
-    bodyDiv.classList.add("px-3");
-    contentDiv.appendChild(bodyDiv);
-    let pName = document.createElement("p");
-    pName.innerHTML = d.name;
-    pName.classList.add("font-weight-bold");
-    bodyDiv.appendChild(pName);
-    let flexDiv = document.createElement("div");
-    bodyDiv.appendChild(flexDiv);
-    flexDiv.classList.add("displ-flex-around");
-    let ulFood = document.createElement("ul");
-    ulFood.classList.add("mx-3");
-    let foodArray = d.food_pairing;
-    foodArray.forEach((f) => {
-      let li = document.createElement("li");
-      li.innerHTML = f;
-      ulFood.appendChild(li);
+      btnModal.setAttribute("data-toggle", "modal");
+      btnModal.setAttribute("data-target", `#modal${d.id}`);
+      btnModal.classList.add("button-food");
+
+      //Modal structure
+      let externalDiv = document.createElement("div");
+      externalDiv.classList.add("modal");
+      externalDiv.classList.add("fade");
+      externalDiv.setAttribute("id", `modal${d.id}`);
+      externalDiv.setAttribute("tabindex", "-1");
+      externalDiv.setAttribute("aria-labelledby", "exampleModalLabel");
+      externalDiv.setAttribute("aria-hidden", "true");
+      modalContainer.appendChild(externalDiv);
+      let dialogDiv = document.createElement("div");
+      dialogDiv.classList.add("modal-dialog");
+      externalDiv.appendChild(dialogDiv);
+      let contentDiv = document.createElement("div");
+      contentDiv.classList.add("modal-content");
+      dialogDiv.appendChild(contentDiv);
+      let headerDiv = document.createElement("div");
+      headerDiv.classList.add("modal-header");
+      contentDiv.appendChild(headerDiv);
+      let h5Title = document.createElement("h5");
+      h5Title.classList.add("modal-title");
+      h5Title.innerHTML = "Food Pairing";
+      h5Title.setAttribute("id", "exampleModalLabel");
+      headerDiv.appendChild(h5Title);
+      let closeButton = document.createElement("button");
+      closeButton.classList.add("close");
+      closeButton.setAttribute("type", "button");
+      closeButton.setAttribute("data-dismiss", "modal");
+      closeButton.setAttribute("aria-label", "Close");
+      headerDiv.appendChild(closeButton);
+      let spanX = document.createElement("span");
+      spanX.setAttribute("aria-hidden", "true");
+      spanX.innerHTML = "&times;";
+      closeButton.appendChild(spanX);
+      let bodyDiv = document.createElement("div");
+      bodyDiv.classList.add("modal-body");
+      bodyDiv.classList.add("px-3");
+      contentDiv.appendChild(bodyDiv);
+      let pName = document.createElement("p");
+      pName.innerHTML = d.name;
+      pName.classList.add("font-weight-bold");
+      bodyDiv.appendChild(pName);
+      let flexDiv = document.createElement("div");
+      bodyDiv.appendChild(flexDiv);
+      flexDiv.classList.add("displ-flex-around");
+      let ulFood = document.createElement("ul");
+      ulFood.classList.add("mx-3");
+      let foodArray = d.food_pairing;
+      foodArray.forEach((f) => {
+        let li = document.createElement("li");
+        li.innerHTML = f;
+        ulFood.appendChild(li);
+      });
+
+      flexDiv.appendChild(ulFood);
+      let picBeer = document.createElement("img");
+      picBeer.classList.add("pictureModal");
+      picBeer.setAttribute("src", d.image_url);
+      /*  if (d.image_url != "null") {
+        picBeer.setAttribute("src", d.image_url);
+      } else {
+        picBeer.innerHTML = "No picture available";
+      } */
+      flexDiv.appendChild(picBeer);
+
+      let footerDiv = document.createElement("div");
+      footerDiv.classList.add("modal-footer");
+      contentDiv.appendChild(footerDiv);
+      let footerCloseBtn = document.createElement("button");
+      footerCloseBtn.setAttribute("type", "button");
+      footerCloseBtn.classList.add("btn");
+      footerCloseBtn.classList.add("btn-secondary");
+      footerCloseBtn.setAttribute("data-dismiss", "modal");
+      footerCloseBtn.innerHTML = "Close";
+      footerDiv.appendChild(footerCloseBtn);
+      //end Modal Structure
+      numData++;
+      td0.innerHTML = numData;
+
+      td0.setAttribute("data-label", "Beer Nr:");
+      td1.innerHTML = d.id;
+      td1.setAttribute("data-label", "Id");
+      td2.innerHTML = d.name;
+      td2.setAttribute("data-label", "Name");
+      td3.innerHTML = d.abv;
+      td3.setAttribute("data-label", "Volume of Alcohol (%)");
+
+      td5.innerHTML = d.first_brewed;
+      td5.setAttribute("data-label", "First Brewed");
+      btnTable.innerHTML = "Show More";
+      btnTable.classList.add("button-food");
+      btnTable.classList.add("click-btn");
+      td4.setAttribute("data-label", "Description");
+
+      td6.classList.add("hide-food");
+      td6.setAttribute("data-label", "Food Pairing");
+      td6.classList.add("food-td");
+      tr.appendChild(td0);
+      tr.appendChild(td1);
+      tr.appendChild(td2);
+      tr.appendChild(td3);
+      tr.appendChild(td4);
+      tr.appendChild(td5);
+      td4.appendChild(td4due);
+      td4.appendChild(pDescr);
+      tr.appendChild(td6);
+      tr.appendChild(btnModal);
+
+      bodyTable.appendChild(tr);
     });
-
-    flexDiv.appendChild(ulFood);
-    let picBeer = document.createElement("img");
-    picBeer.classList.add("pictureModal");
-    picBeer.setAttribute("src", d.image_url);
-    flexDiv.appendChild(picBeer);
-
-    let footerDiv = document.createElement("div");
-    footerDiv.classList.add("modal-footer");
-    contentDiv.appendChild(footerDiv);
-    let footerCloseBtn = document.createElement("button");
-    footerCloseBtn.setAttribute("type", "button");
-    footerCloseBtn.classList.add("btn");
-    footerCloseBtn.classList.add("btn-secondary");
-    footerCloseBtn.setAttribute("data-dismiss", "modal");
-    footerCloseBtn.innerHTML = "Close";
-    footerDiv.appendChild(footerCloseBtn);
-
-    numData++;
-    td0.innerHTML = numData;
-    resultNumber.innerHTML = "Search Results: " + numData;
-    td0.setAttribute("data-label", "Beer:");
-    td1.innerHTML = d.id;
-    td1.setAttribute("data-label", "Id");
-    td2.innerHTML = d.name;
-    td2.setAttribute("data-label", "Name");
-    td3.innerHTML = d.abv;
-    td3.setAttribute("data-label", "Volume of Alcohol (%)");
-
-    td5.innerHTML = d.first_brewed;
-    td5.setAttribute("data-label", "First Brewed");
-    btnTable.innerHTML = "Show More";
-    btnTable.classList.add("button-food");
-    btnTable.classList.add("click-btn");
-    td4.setAttribute("data-label", "Description");
-
-    td6.classList.add("hide-food");
-    td6.setAttribute("data-label", "Food Pairing");
-    td6.classList.add("food-td");
-    tr.appendChild(td0);
-    tr.appendChild(td1);
-    tr.appendChild(td2);
-    tr.appendChild(td3);
-    tr.appendChild(td4);
-    tr.appendChild(td5);
-    td4.appendChild(td4due);
-    td4.appendChild(pDescr);
-    tr.appendChild(td6);
-    tr.appendChild(btnModal);
-
-    bodyTable.appendChild(tr);
-  });
-
+  } else {
+    noResult.innerHTML = "No Results. Try with other filters";
+  }
   //Description show more and Less
   let allSecDescr = Array.from(document.querySelectorAll(".sec-descr"));
   let allFirstDescr = Array.from(document.querySelectorAll(".first-descr"));

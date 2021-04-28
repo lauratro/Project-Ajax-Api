@@ -21,6 +21,7 @@
 .margin-checkbox {
   margin: 6px;
 }
+
 /*Titles*/
 .image-backgr {
   clip-path: polygon(
@@ -45,7 +46,7 @@
 .titles {
   font-size: 2rem;
   font-weight: 900 !important;
-  background-color: rgba(110, 110, 109, 0.5);
+
   padding: 5px;
   margin-top: 95px;
 }
@@ -61,8 +62,9 @@
 }
 @media (max-width: 768px) {
   .titles {
-    font-size: 1rem;
+    font-size: 1.2rem;
     margin-bottom: 15px;
+    margin-top: 65px;
   }
   .filter-style {
     margin: 20px;
@@ -91,13 +93,7 @@
   }
 }
 /*FOOD*/
-.hide-food,
-.hide-food-th {
-  display: none;
-}
-.show-food {
-  display: block;
-}
+
 select {
   margin: 0 auto;
 }
@@ -105,22 +101,21 @@ select {
 table {
   margin: 0 auto;
 }
-.hide-descr {
-  display: none;
-}
-.show-descr {
-  display: block;
-}
+
 .pictureModal {
   width: auto;
   height: 200px;
+}
+.table,
+.fiter-container {
+  width: fit-content;
 }
 .internal-tr {
   transition: all 0.2s ease-in;
   text-align: center;
 }
 .internal-tr:hover {
-  background-color: #f5f5f5;
+  background-color: white;
   transform: scale(1.02);
   box-shadow: 2px 2px 18px 6px rgba(0, 0, 0, 0.75);
   -webkit-box-shadow: 2px 2px 18px 6px rgba(0, 0, 0, 0.75);
@@ -133,6 +128,12 @@ table {
   display: inline-block;
   font-style: italic;
   text-decoration: underline;
+}
+.hide-descr {
+  display: none;
+}
+.show-descr {
+  display: block;
 }
 .descrBtn:hover,
 .button-food:hover {
@@ -150,6 +151,13 @@ table {
   font-weight: 700;
   padding: 3px;
 }
+.hide-food,
+.hide-food-th {
+  display: none;
+}
+.show-food {
+  display: block;
+}
 /*Table responsive*/
 @media (max-width: 768px) {
   .table thead {
@@ -164,6 +172,7 @@ table {
   }
   .table tr {
     margin-bottom: 15px;
+    background-color: rgb(158, 157, 157);
   }
   .table tbody tr td {
     text-align: right;
