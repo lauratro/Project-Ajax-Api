@@ -5,7 +5,7 @@ let tot = document.getElementById("tot");
 let filterBoth = [];
 
 //Table
-let displayResults = (data) => {
+let displayResults = (data, index) => {
   bodyTable.innerHTML = "";
   tableResult.classList.toggle("showTable");
   let numData = "";
@@ -25,9 +25,15 @@ let displayResults = (data) => {
 
     let td5 = document.createElement("td");
 
-  /*   let td6 = document.createElement("td"); */
+    let td6 = document.createElement("td");
+
+    let td7 = document.createElement("td");
+    let td7form = document.createElement("form");
+    let td7btn = document.createElement("button");
+    let td7input = document.createElement("input");
 
     let btnTable = document.createElement("button");
+
     //Description
     let pDescr = document.createElement("p");
     pDescr.classList.add("descrBtn");
@@ -106,7 +112,11 @@ let displayResults = (data) => {
     flexDiv.appendChild(ulFood);
     let picBeer = document.createElement("img");
     picBeer.classList.add("pictureModal");
-    picBeer.setAttribute("src", d.image_url);
+    if (d.image_url != "null") {
+      picBeer.setAttribute("src", d.image_url);
+    } else {
+      picBeer.innerHTML = "No picture available";
+    }
     flexDiv.appendChild(picBeer);
 
     let footerDiv = document.createElement("div");
@@ -119,6 +129,7 @@ let displayResults = (data) => {
     footerCloseBtn.setAttribute("data-dismiss", "modal");
     footerCloseBtn.innerHTML = "Close";
     footerDiv.appendChild(footerCloseBtn);
+    //end modal
 
     numData++;
     td0.innerHTML = numData;
@@ -133,6 +144,56 @@ let displayResults = (data) => {
 
     td5.innerHTML = d.first_brewed;
     td5.setAttribute("data-label", "First Brewed");
+
+    //favorite input
+    td7form.appendChild(td7btn);
+    td7form.appendChild(td7input);
+    td7.appendChild(td7form);
+    td7form.classList.add("formFav");
+    td7form.setAttribute("id", "form" + index);
+    td7input.setAttribute("type", "text");
+    td7input.setAttribute("value", d.name);
+    td7input.classList.add("inputForm");
+    td7input.setAttribute("id", d.name);
+    td7btn.setAttribute("type", "submit");
+    td7btn.setAttribute("value", "Favorite");
+    td7btn.innerHTML = "Favorite";
+    td7btn.classList.add("favorite");
+    //create beer
+    td7btn.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      console.log(td7btn);
+      if (!td7btn.classList.contains("color")) {
+        td7btn.classList.add("color");
+        let name = document.getElementById(d.name).value;
+        console.log(name);
+        var data = {
+          title: name,
+        };
+        db.collection("Beers")
+          .add({
+            title: name,
+          })
+          .then(() => {
+            console.log("ok");
+          });
+      } else {
+        td7btn.classList.remove("color");
+      }
+      /*   let name = document.getElementById(d.name).value;
+      console.log(name);
+      var data = {
+        title: name,
+      };
+      db.collection("Beers")
+        .add({
+          title: name,
+        })
+        .then(() => {
+          console.log("ok");
+        }); */
+    });
     btnTable.innerHTML = "Show More";
     btnTable.classList.add("button-food");
     btnTable.classList.add("click-btn");
@@ -151,10 +212,11 @@ let displayResults = (data) => {
     td4.appendChild(pDescr);
     tr.appendChild(td6);
     tr.appendChild(btnModal);
-
+    tr.appendChild(td7);
     bodyTable.appendChild(tr);
   });
-
+  //create new beer
+  let allInput = document.querySelectorAll;
   //Description show more and Less
   let allSecDescr = Array.from(document.querySelectorAll(".sec-descr"));
   let allFirstDescr = Array.from(document.querySelectorAll(".first-descr"));
@@ -170,7 +232,58 @@ let displayResults = (data) => {
       }
     });
   }
+  const allFormFav = Array.from(document.querySelectorAll(".formFav"));
+  console.log(allFormFav[0]);
+
+  /*   allFormFav.forEach((fav, index) => {
+    fav.id;
+  }); */
+  /*   const allFavorite = Array.from(document.querySelectorAll(".favorite"));
+  console.log(allFavorite[0]);
+  let form0 = document.getElementById("form0");
+  console.log(form0);
+  allFavorite[0].addEventListener("click", (e) => {
+    e.preventDefault();
+    db.collection("Beers")
+      .add({
+        title: form0.value,
+      })
+      .then(() => {
+        console.log("ok");
+      });
+  });
+
+  for (var i = 0; i < allFormFav.length; i++) {
+    allFavorite[i].addEventListener("click", (e) => {
+      e.preventDefault(); */
+
+  /*     db.collection("Beers")
+        .add({
+          title: allFormFav[i][value],
+        })
+        .then(() => {
+          console.log("ok");
+        }); */
+  /*   });
+  } */
+  /*  allFavorite.forEach((fav) => {
+    fav.addEventListener("submit", () => {
+      db.collection("Beers").add({
+        title: d.name,
+      });
+    });
+  });
+  console.log(db.collection("Beers")); */
+  //
 };
+
+/* db.collection("Beers")
+  .add({
+    title: "test",
+  })
+  .then(() => {
+    console.log("ok");
+  }); */
 
 // Select Dropdown Button
 let dropdownSelectorCreator = (data) => {
@@ -305,11 +418,11 @@ let method = {
   },
 };
 Promise.all([
-  fetch("https://api.punkapi.com/v2/beers?page=1&per_page=80", method),
-  fetch("https://api.punkapi.com/v2/beers?page=2&per_page=80", method),
-  fetch("https://api.punkapi.com/v2/beers?page=3&per_page=80", method),
-  fetch("https://api.punkapi.com/v2/beers?page=4&per_page=80", method),
-  fetch("https://api.punkapi.com/v2/beers?page=5&per_page=80", method),
+  fetch("https://api.punkapi.com/v2/beers?page=1&per_page=5", method),
+  fetch("https://api.punkapi.com/v2/beers?page=2&per_page=5", method),
+  fetch("https://api.punkapi.com/v2/beers?page=3&per_page=5", method),
+  fetch("https://api.punkapi.com/v2/beers?page=4&per_page=5", method),
+  fetch("https://api.punkapi.com/v2/beers?page=5&per_page=5", method),
 ])
   .then(function (responses) {
     // Get a JSON object from each of the responses
@@ -330,40 +443,6 @@ Promise.all([
     dropdownSelectorCreator(data);
     checkboxCreator(data);
     addEvents(data);
-    changeRadio(data);
+
     displayResults(data);
   });
-
-function changeRadio(data) {
-  if (document.querySelector('input[name="alcohol"]')) {
-    document.querySelectorAll('input[name="alcohol"]').forEach((elem) => {
-      elem.addEventListener("change", function (event) {
-        var item = event.target.value;
-        console.log(item);
-        if (item == "one") {
-          let filtrato = data.filter((x, i) => {
-            return x.abv < 4.1 && x.abv > 0;
-          });
-
-          console.log(filtrato);
-          displayResults(filtrato);
-        } else if (item == "four") {
-          let filtrato = data.filter((x) => {
-            return x.abv < 6.1 && x.abv > 4;
-          });
-
-          console.log(filtrato);
-          displayResults(filtrato);
-        } else if (item == "six") {
-          let filtrato = data.filter((x) => {
-            return x.abv > 6;
-          });
-
-          console.log(filtrato);
-          displayResults(filtrato);
-        }
-      });
-    });
-  }
-}
-changeRadio();

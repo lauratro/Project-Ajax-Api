@@ -1,0 +1,21 @@
+.color {
+  color: red;
+}
+#logout-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 50px;
+}
+.list-fav-beers {
+  background-color: lightblue;
+  width: 30%;
+  margin: 0 auto;
+  padding: 30px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+.inputForm {
+  display: none;
+}
