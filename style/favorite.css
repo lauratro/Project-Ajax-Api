@@ -7,14 +7,26 @@
   align-items: center;
   font-weight: bold;
   font-size: 50px;
+  text-align: center;
 }
 .list-fav-beers {
   background-color: lightblue;
-  width: 30%;
+  width: 80%;
   margin: 0 auto;
   padding: 30px;
   margin-bottom: 20px;
   margin-top: 20px;
+}
+.btn-modal-fav {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 20px;
+}
+@media (max-width: 768px) {
+  .list-fav-beers {
+    width: 80%;
+  }
 }
 .inputForm {
   display: none;

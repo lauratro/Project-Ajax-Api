@@ -162,7 +162,6 @@ let displayResults = (data, index) => {
     //create beer
     td7btn.addEventListener("click", (e) => {
       e.preventDefault();
-
       console.log(td7btn);
       if (!td7btn.classList.contains("color")) {
         td7btn.classList.add("color");
@@ -181,18 +180,6 @@ let displayResults = (data, index) => {
       } else {
         td7btn.classList.remove("color");
       }
-      /*   let name = document.getElementById(d.name).value;
-      console.log(name);
-      var data = {
-        title: name,
-      };
-      db.collection("Beers")
-        .add({
-          title: name,
-        })
-        .then(() => {
-          console.log("ok");
-        }); */
     });
     btnTable.innerHTML = "Show More";
     btnTable.classList.add("button-food");

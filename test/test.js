@@ -5,6 +5,9 @@ let tot = document.getElementById("tot");
 let tot2 = document.getElementById("tot2");
 let filterBoth = [];
 let noResult = document.getElementById("noResult");
+let modalContainer = document.getElementById("modal-container");
+let resultNumber = document.getElementById("resultNumber");
+//Modal creator
 
 //Table
 let displayResults = (data) => {
@@ -13,8 +16,8 @@ let displayResults = (data) => {
   let numData = "";
   tot.innerHTML = data.length;
   tot2.innerHTML = data.length;
+  let noResult = document.getElementById("noResult");
   let modalContainer = document.getElementById("modal-container");
-  let resultNumber = document.getElementById("resultNumber");
   if (data.length) {
     data.forEach((d, index) => {
       noResult.innerHTML = "";
@@ -130,7 +133,7 @@ let displayResults = (data) => {
       footerCloseBtn.setAttribute("data-dismiss", "modal");
       footerCloseBtn.innerHTML = "Close";
       footerDiv.appendChild(footerCloseBtn);
-      //end Modal Structure
+      //end Modal Structure */
       numData++;
       td0.innerHTML = numData;
 
