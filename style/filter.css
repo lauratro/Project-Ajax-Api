@@ -21,7 +21,10 @@
 .margin-checkbox {
   margin: 6px;
 }
-
+/*Loading*/
+#loading {
+  text-align: center;
+}
 /*Titles*/
 .image-backgr {
   clip-path: polygon(

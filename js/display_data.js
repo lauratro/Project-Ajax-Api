@@ -283,6 +283,7 @@ const addEvents = (data) => {
 //Filters
 let functionFilter = (data, checkboxes, dropdownGroupElem) => {
   filterBoth = [];
+
   data.forEach((d) => {
     if (checkboxes.includes(d.first_brewed) || dropdownGroupElem == d.abv) {
       filterBoth.push(d);
@@ -323,7 +324,12 @@ let filterData = (data) => {
     }
   }
 };
-
+let loading = (data) => {
+  let loading = document.getElementById("loading");
+  if (data) {
+    loading.classList.add("hide");
+  }
+};
 //fetch Api
 let method = {
   method: "GET",
@@ -355,6 +361,7 @@ Promise.all([
       return a.abv - b.abv;
     });
     dropdownSelectorCreator(data);
+    loading(data);
     checkboxCreator(data);
     addEvents(data);
     modalCreator(data);
