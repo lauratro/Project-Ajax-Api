@@ -166,8 +166,8 @@ let displayResults = (data, index) => {
 
       if (!td7btn.classList.contains("color")) {
         td7btn.classList.add("color");
-        let name = document.getElementById(d.name).value;
 
+        let name = document.getElementById(d.name).value;
         console.log(name);
         let data = {
           title: name,
@@ -179,6 +179,20 @@ let displayResults = (data, index) => {
         db.collection("users")
           .doc(user)
           .update({ title: firebase.firestore.FieldValue.arrayUnion(name) })
+          .then(() => {
+            console.log("Document successfully written!");
+          });
+      } else {
+        let name = document.getElementById(d.name).value;
+        console.log("due", name);
+        td7btn.classList.remove("color");
+        var user = firebase.auth().currentUser.uid;
+        console.log("user", user);
+        db.collection("users")
+          .doc(user)
+          .update({
+            title: firebase.firestore.FieldValue.arrayRemove(name),
+          })
           .then(() => {
             console.log("Document successfully written!");
           });

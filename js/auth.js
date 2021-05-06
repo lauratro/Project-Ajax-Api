@@ -1,7 +1,7 @@
 //list for status
 auth.onAuthStateChanged((user) => {
   if (user) {
-    db.collection("Beers").onSnapshot(
+    db.collection("users").onSnapshot(
       (snapshot) => {
         setupBeers(snapshot.docs);
         setupUI(user);

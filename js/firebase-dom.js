@@ -14,8 +14,10 @@ const setupUI = (user) => {
       .then((doc) => {
         const html = `
 <div>Logged in as ${user.email}</div>
- <div>${doc.data().email}</div>`;
+`;
         accountDetails.innerHTML = html;
+        const favorite = `<div>${doc.data().title}</div>`;
+        beersList.innerHTML = favorite;
       });
 
     loggedInLinks.forEach((item) => {
