@@ -1,12 +1,15 @@
 //list for status
 auth.onAuthStateChanged((user) => {
   if (user) {
-    db.collection("Beers")
-      .get()
-      .then((snapshot) => {
+    db.collection("Beers").onSnapshot(
+      (snapshot) => {
         setupBeers(snapshot.docs);
         setupUI(user);
-      });
+      },
+      (err) => {
+        console.log(err.message);
+      }
+    );
   } else {
     setupUI();
     setupBeers([]);
@@ -29,11 +32,18 @@ signupForm.addEventListener("submit", (e) => {
   auth
     .createUserWithEmailAndPassword(email, password)
     .then((userCredential) => {
+      return db.collection("users").doc(userCredential.user.uid).set({
+        email: signupForm["signup-email"].value,
+        title: [],
+        id: userCredential.user.uid,
+      });
+    })
+    .then(() => {
       // Signed in
       const modal = document.querySelector("#modal-signup");
       $("#modal-signup").modal("hide");
       var user = userCredential.user;
-      // ...
+      //
     })
     .catch((error) => {
       var errorCode = error.code;

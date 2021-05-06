@@ -159,28 +159,32 @@ let displayResults = (data, index) => {
     td7btn.setAttribute("value", "Favorite");
     td7btn.innerHTML = "Favorite";
     td7btn.classList.add("favorite");
-    //create beer
+    //create beer on user profile
     td7btn.addEventListener("click", (e) => {
       e.preventDefault();
       console.log(td7btn);
+
       if (!td7btn.classList.contains("color")) {
         td7btn.classList.add("color");
         let name = document.getElementById(d.name).value;
+
         console.log(name);
-        var data = {
+        let data = {
           title: name,
         };
-        db.collection("Beers")
-          .add({
-            title: name,
-          })
+
+        var user = firebase.auth().currentUser.uid;
+        console.log("user", user);
+
+        db.collection("users")
+          .doc(user)
+          .update({ title: firebase.firestore.FieldValue.arrayUnion(name) })
           .then(() => {
-            console.log("ok");
+            console.log("Document successfully written!");
           });
-      } else {
-        td7btn.classList.remove("color");
       }
     });
+
     btnTable.innerHTML = "Show More";
     btnTable.classList.add("button-food");
     btnTable.classList.add("click-btn");
