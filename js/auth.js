@@ -1,9 +1,11 @@
 //list for status
 auth.onAuthStateChanged((user) => {
+
+  console.log("user", user)
   if (user) {
-    db.collection("users").onSnapshot(
+    db.collection("Beers").onSnapshot(
       (snapshot) => {
-        setupBeers(snapshot.docs);
+       setupBeers(snapshot.docs);
         setupUI(user);
       },
       (err) => {
@@ -12,7 +14,7 @@ auth.onAuthStateChanged((user) => {
     );
   } else {
     setupUI();
-    setupBeers([]);
+   setupBeers([]);
   }
 });
 

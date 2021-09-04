@@ -5,19 +5,27 @@ let logoutText = document.getElementById("logout-text");
 const loggedOutlinks = document.querySelectorAll(".logged-out");
 const loggedInLinks = document.querySelectorAll(".logged-in");
 const accountDetails = document.querySelector(".account-details");
+
 const setupUI = (user) => {
+  console.log("user", user)
   if (user) {
     //account info
-    db.collection("users")
+    
+    db.collection("beers")
       .doc(user.uid)
       .get()
       .then((doc) => {
+        console.log("data-array", doc.data().title);
         const html = `
 <div>Logged in as ${user.email}</div>
 `;
         accountDetails.innerHTML = html;
         const favorite = `<div>${doc.data().title}</div>`;
-        beersList.innerHTML = favorite;
+       beersList.innerHTML = favorite;
+      /*   let favoriteArray = doc.data().title.forEach((beer) => {
+          <li>${beer}</li>; 
+        });*/
+     // beersList.innerHTML = favoriteArray;
       });
 
     loggedInLinks.forEach((item) => {
@@ -43,12 +51,12 @@ const setupUI = (user) => {
 };
 //setup beer list
 
-const setupBeers = (data) => {
+ const setupBeers = (data) => {
   if (data.length) {
     let html = "";
     data.forEach((doc) => {
       const beer = doc.data();
-      console.log(beer);
+       console.log(beer); 
       const li = `<li>
       <div>${beer.title}</div>
       
@@ -60,4 +68,4 @@ const setupBeers = (data) => {
   } else {
     beersList.innerHTML = `<h5>Please log in to see your favourite Beers </h5>`;
   }
-};
+}; 

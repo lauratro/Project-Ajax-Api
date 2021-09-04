@@ -159,6 +159,8 @@ let displayResults = (data, index) => {
     td7btn.setAttribute("value", "Favorite");
     td7btn.innerHTML = "Favorite";
     td7btn.classList.add("favorite");
+    td7btn.setAttribute("data", d.name);
+
     //create beer on user profile
     td7btn.addEventListener("click", (e) => {
       e.preventDefault();
@@ -197,8 +199,14 @@ let displayResults = (data, index) => {
             console.log("Document successfully written!");
           });
       }
+      db.collection("users").doc(user).get().then(doc=>{console.log("doc", doc)})
     });
-
+// Get Favorite beers
+window.addEventListener("load", function test(){
+  var user = firebase.auth().currentUser.uid;
+  console.log("userload", user);
+  console.log("test")
+});
     btnTable.innerHTML = "Show More";
     btnTable.classList.add("button-food");
     btnTable.classList.add("click-btn");
@@ -221,7 +229,7 @@ let displayResults = (data, index) => {
     bodyTable.appendChild(tr);
   });
   //create new beer
-  let allInput = document.querySelectorAll;
+
   //Description show more and Less
   let allSecDescr = Array.from(document.querySelectorAll(".sec-descr"));
   let allFirstDescr = Array.from(document.querySelectorAll(".first-descr"));
@@ -239,57 +247,7 @@ let displayResults = (data, index) => {
   }
   const allFormFav = Array.from(document.querySelectorAll(".formFav"));
   console.log(allFormFav[0]);
-
-  /*   allFormFav.forEach((fav, index) => {
-    fav.id;
-  }); */
-  /*   const allFavorite = Array.from(document.querySelectorAll(".favorite"));
-  console.log(allFavorite[0]);
-  let form0 = document.getElementById("form0");
-  console.log(form0);
-  allFavorite[0].addEventListener("click", (e) => {
-    e.preventDefault();
-    db.collection("Beers")
-      .add({
-        title: form0.value,
-      })
-      .then(() => {
-        console.log("ok");
-      });
-  });
-
-  for (var i = 0; i < allFormFav.length; i++) {
-    allFavorite[i].addEventListener("click", (e) => {
-      e.preventDefault(); */
-
-  /*     db.collection("Beers")
-        .add({
-          title: allFormFav[i][value],
-        })
-        .then(() => {
-          console.log("ok");
-        }); */
-  /*   });
-  } */
-  /*  allFavorite.forEach((fav) => {
-    fav.addEventListener("submit", () => {
-      db.collection("Beers").add({
-        title: d.name,
-      });
-    });
-  });
-  console.log(db.collection("Beers")); */
-  //
 };
-
-/* db.collection("Beers")
-  .add({
-    title: "test",
-  })
-  .then(() => {
-    console.log("ok");
-  }); */
-
 // Select Dropdown Button
 let dropdownSelectorCreator = (data) => {
   let dropdownGroup = document.getElementById("alcohol");
