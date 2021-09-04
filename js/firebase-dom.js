@@ -15,7 +15,7 @@ const setupUI = (user) => {
       .doc(user.uid)
       .get()
       .then((doc) => {
-        console.log("data-array", doc.data().title);
+      if(doc){
         const html = `
 <div>Logged in as ${user.email}</div>
 `;
@@ -26,6 +26,7 @@ const setupUI = (user) => {
           <li>${beer}</li>; 
         });*/
      // beersList.innerHTML = favoriteArray;
+      }
       });
 
     loggedInLinks.forEach((item) => {

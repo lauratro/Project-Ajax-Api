@@ -199,14 +199,35 @@ let displayResults = (data, index) => {
             console.log("Document successfully written!");
           });
       }
-      db.collection("users").doc(user).get().then(doc=>{console.log("doc", doc)})
-    });
-// Get Favorite beers
-window.addEventListener("load", function test(){
-  var user = firebase.auth().currentUser.uid;
-  console.log("userload", user);
-  console.log("test")
+     
+  db.collection("users")
+  .doc(user).get().then((doc) => {
+    if (doc.exists) {
+     doc.data().title.forEach(title=>{
+      console.log("Document data:", title);
+     })
+        
+    } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+    }
+}).catch((error) => {
+    console.log("Error getting document:", error);
 });
+    });
+
+// Get Favorite beers
+/* function getFav(){
+  alert("test")
+  console.log("test")
+  var user2 = firebase.auth().currentUser.uid;
+  console.log("userload", user2);
+ 
+
+
+}
+
+window.addEventListener("load", getFav()) */
     btnTable.innerHTML = "Show More";
     btnTable.classList.add("button-food");
     btnTable.classList.add("click-btn");
